@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STKCraft — Space mission analysis, in the open</title>
+  <meta name="description" content="STKCraft is open-source space mission analysis. Build a scenario of satellites, ground stations, sensors and targets, propagate it, and see exactly when one can see another.">
+  <meta name="theme-color" content="#f2f1ee">
+  <link rel="canonical" href="https://www.stkscraft.com/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <script>
+    (() => {
+      try {
+        const stored = localStorage.getItem("stk-theme");
+        const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = stored || (dark ? "dark" : "light");
+      } catch (_) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="site-header__brand" href="#top" aria-label="STKCraft home">
+      <img src="assets/brand/albatross.svg" alt="" width="26" height="26">
+      <span>STKCRAFT</span>
+    </a>
+    <nav class="site-nav" id="site-nav" aria-label="Primary">
+      <a href="#craft" data-i18n="nav.craft">The craft</a>
+      <a href="#workspace" data-i18n="nav.workspace">Workspace</a>
+      <a href="#family" data-i18n="nav.family">Family</a>
+      <a href="#principles" data-i18n="nav.principles">Principles</a>
+      <a href="#status" data-i18n="nav.status">Status</a>
+    </nav>
+    <div class="site-header__tools">
+      <button class="tool-button" id="lang-toggle" type="button" aria-label="Switch language to Chinese">EN / 中</button>
+      <button class="tool-button" id="theme-toggle" type="button" aria-label="Switch to dark theme">☾</button>
+      <a class="github-button" href="https://github.com/spacelibres/STKCraft" target="_blank" rel="noopener">
+        <span>GitHub</span> ↗
+      </a>
+      <button class="tool-button menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-controls="site-nav" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero frame" aria-labelledby="hero-title">
+      <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero__clear" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="mono hero__eyebrow">SPACE MISSION ANALYSIS · OPEN SOURCE</p>
+        <div class="hero__wordmark" role="img" aria-label="STKCRAFT">STKCRAFT</div>
+        <h1 id="hero-title">Know when the sky opens.</h1>
+        <p class="hero__lede">STKCraft is open-source space mission analysis. Build a scenario of satellites, ground stations, sensors and targets; propagate it; then see exactly when one can see another — and for how long.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#craft">Explore the craft <span aria-hidden="true">↓</span></a>
+          <a class="button" href="https://github.com/spacelibres/STKCraft" target="_blank" rel="noopener">View source <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="mono hero__meta">OPEN SOURCE · PURE RUST · EARLY ALPHA · NO SUBSCRIPTION</p>
+        <p class="hero__by">By the ArtCraft team. One more craft in the family.</p>
+      </div>
+      <nav class="section-index" aria-label="Sections">
+        <a href="#top" class="is-active">STKCRAFT</a>
+        <a href="#craft">THE CRAFT</a>
+        <a href="#workspace">WORKSPACE</a>
+        <a href="#family">FAMILY</a>
+        <a href="#principles">PRINCIPLES</a>
+        <a href="#status">STATUS</a>
+        <a href="#start">GET STARTED</a>
+      </nav>
+    </section>
+  </main>
+
+  <div class="ruler" aria-hidden="true">
+    <div class="ruler__progress"></div>
+    <div class="ruler__labels"></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="mono" style="padding:24px">© 2026 ArtCraft Team and the STKCraft contributors</p>
+    </div>
+  </footer>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
