@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">STKCraft albatross mark</title>
+  <defs>
+    <clipPath id="squircle"><rect width="512" height="512" rx="112"/></clipPath>
+  </defs>
+  <g clip-path="url(#squircle)">
+    <rect width="512" height="512" fill="#2d81ff"/>
+    <ellipse cx="268" cy="258" rx="212" ry="112" fill="none" stroke="#101014" stroke-width="9" opacity=".5" transform="rotate(-24 268 258)"/>
+    <circle cx="457" cy="143" r="8" fill="#101014"/>
+    <path d="M92 512c0-82 20-162 68-212 36-38 60-80 70-124 10-52 38-82 76-88 42-6 72 14 84 46 8 22 0 42-16 56l-36 28c-8 14-6 28 4 42 14 20 24 40 20 62-6 26-28 38-52 28-22-10-40-8-54 10-24 32-38 74-42 116-1 8-1 14 0 20Z" fill="#f2f1ee" stroke="#101014" stroke-width="14" stroke-linejoin="round"/>
+    <path d="M334 214 L 496 310 Q 508 318 506 330 L 496 344 L 334 264 Z" fill="#e9c46a" stroke="#101014" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M 344 236 C 384 256 438 290 484 320" fill="none" stroke="#101014" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 496 310 Q 508 318 506 330 Q 504 342 494 346 Q 486 348 486 342 Q 492 338 496 330 Q 498 320 490 314 Z" fill="#101014"/>
+    <path d="M 354 218 Q 366 214 378 221 Q 370 228 358 225 Z" fill="#f2f1ee" stroke="#101014" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M 300 150c10-8 24-9 35-1" fill="none" stroke="#101014" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="322" cy="161" r="10" fill="#101014"/>
+    <circle cx="325" cy="157" r="3" fill="#f2f1ee"/>
+    <path d="M 338 176c8 10 14 22 18 36" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 232 268c14 14 24 32 30 52" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+    <path d="M 212 306c14 14 24 32 30 52" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+    <path d="M 196 346c14 14 24 32 30 52" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+    <path d="M 184 388c12 12 22 28 28 46" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+    <path d="M 178 430c10 10 20 24 26 40" fill="none" stroke="#101014" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+  </g>
+</svg>

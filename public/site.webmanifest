@@ -1,0 +1,13 @@
+{
+  "name": "STKCraft",
+  "short_name": "STKCraft",
+  "description": "Open-source space mission analysis.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f2f1ee",
+  "theme_color": "#2d81ff",
+  "icons": [
+    { "src": "/app-icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

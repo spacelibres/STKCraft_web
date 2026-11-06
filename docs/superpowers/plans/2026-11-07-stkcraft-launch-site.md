@@ -1,5 +1,10 @@
 # STKCraft Launch Site Implementation Plan
 
+> **Amended 2026-11-07:** the site is implemented with **Next.js 16 App Router + TypeScript**
+> and a static export, not the plain-HTML structure described in the tasks below. See
+> `docs/superpowers/specs/2026-11-07-nextjs-amendment.md` for the final architecture. The visual
+> system, content, interaction model and deployment target remain as planned.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build and publish the official STKCraft launch site at `https://www.stkscraft.com` — an ArtCraft-family editorial page with an original albatross identity, a live orbital demo, English/Chinese copy, and light/dark themes.

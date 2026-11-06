@@ -1,7 +1,9 @@
 # STKCraft Launch Site — Design
 
 **Date:** 2026-11-07  
-**Status:** Awaiting user review  
+**Status:** Approved; implementation amended to Next.js + TypeScript  
+**Amendment:** See [`2026-11-07-nextjs-amendment.md`](./2026-11-07-nextjs-amendment.md) for the
+Next.js 16 / TypeScript static-export architecture that supersedes the plain-HTML notes below.
 **Target:** <https://www.stkscraft.com>  
 **Repository:** <https://github.com/spacelibres/STKCraft_web>
 

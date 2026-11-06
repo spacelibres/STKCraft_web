@@ -1,5 +1,11 @@
 # Local research, reference captures, and browser profiles
 .research/
 node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
 .DS_Store
 Thumbs.db
