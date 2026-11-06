@@ -1,0 +1,5 @@
+# Local research, reference captures, and browser profiles
+.research/
+node_modules/
+.DS_Store
+Thumbs.db
