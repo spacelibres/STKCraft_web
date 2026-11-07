@@ -4,6 +4,7 @@ The official launch site for [STKCraft](https://github.com/spacelibres/STKCraft)
 member of the ArtCraft Craft family.
 
 **Live:** <https://www.stkscraft.com>  
+**VPS preview:** <http://176.122.160.172:8787/>  
 **Repository:** <https://github.com/spacelibres/STKCraft_web>
 
 ## What this is
@@ -111,8 +112,12 @@ present them as mission output.
 
 ## Deployment
 
-The workflow in `.github/workflows/pages.yml` installs, builds and deploys `out/` on every push
-to `main`.
+There are two deployments:
+
+- **GitHub Pages** — `.github/workflows/pages.yml` installs, builds and deploys `out/` on every
+  push to `main`.
+- **VPS** — `/opt/stkscraft` builds the same `main` branch and publishes to `/var/www/stkscraft`
+  behind Caddy on `:8787`. A GitHub push webhook hits `/webhook`; see [`deploy/README.md`](deploy/README.md).
 
 1. Push to `main`.
 2. In **Settings → Pages**, set the source to **GitHub Actions**.
