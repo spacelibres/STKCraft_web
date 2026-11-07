@@ -6,6 +6,19 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.11] — 2026-11-07 — Footer-aware section menu
+
+At the end of the page the fixed section index now gets out of the footer's way
+instead of sitting on top of it.
+
+### Changed
+
+- `SectionIndex` tracks the footer position and translates upward as the footer
+  enters the viewport, keeping a 24px gap above it.
+- The menu remains bottom-fixed through the normal reading flow; it only moves
+  when the footer would collide with it.
+- The moved menu still shows the active section and the blue active rule.
+
 ## [0.1.10] — 2026-11-07 — Ruler density matched to ArtCraft
 
 The 0–100 scale was structurally right but stretched by our longer page, so

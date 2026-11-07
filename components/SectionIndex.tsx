@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type SectionIndexProps = {
   labels: {
@@ -20,6 +20,35 @@ const ids = ["top", "craft", "workspace", "family", "principles", "status", "sta
 
 export function SectionIndex({ labels, base }: SectionIndexProps) {
   const [active, setActive] = useState<string>("top");
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const footer = document.querySelector<HTMLElement>(".site-footer");
+    let frame = 0;
+    const updatePosition = () => {
+      frame = 0;
+      const nav = navRef.current;
+      if (!nav || !footer) return;
+      const naturalBottom = window.innerHeight - 32;
+      const footerTop = footer.getBoundingClientRect().top;
+      const lift = Math.max(0, naturalBottom - (footerTop - 24));
+      nav.style.transform = `translate3d(0, ${-lift}px, 0)`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(updatePosition);
+    };
+    updatePosition();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    const observer = new ResizeObserver(onScroll);
+    observer.observe(document.body);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      observer.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useEffect(() => {
     const sections = ids
@@ -50,7 +79,7 @@ export function SectionIndex({ labels, base }: SectionIndexProps) {
   ];
 
   return (
-    <nav className="section-index" aria-label={labels.aria}>
+    <nav ref={navRef} className="section-index" aria-label={labels.aria}>
       {items.map((item) => (
         <a
           key={item.id}

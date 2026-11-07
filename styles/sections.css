@@ -134,6 +134,7 @@
   letter-spacing: .08em;
   text-transform: uppercase;
   text-align: right;
+  will-change: transform;
 }
 .section-index a {
   display: inline-flex;
