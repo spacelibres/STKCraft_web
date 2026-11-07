@@ -11,7 +11,7 @@ deployment; the VPS webhook is the deployment path.
 Every commit that changes the site must bump the smallest version component and update
 [`CHANGELOG.md`](CHANGELOG.md) in the same commit.
 
-Example: `0.1.7` → `0.1.8`.
+Example: `0.1.8` → `0.1.9`.
 
 1. Change the `version` field in `package.json`.
 2. Add `## [x.y.z] — <title>` to `CHANGELOG.md`, with the relevant `Added` / `Changed` / `Fixed` /

@@ -5,5 +5,7 @@ After=network.target
 [Service]
 Type=oneshot
 User=root
-ExecStart=/usr/bin/python3 /opt/stkscraft/deploy/visitor_log.py
+WorkingDirectory=/opt/stkscraft
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/local/bin/pnpm exec tsx /opt/stkscraft/deploy/visitor-log.ts
 Nice=10

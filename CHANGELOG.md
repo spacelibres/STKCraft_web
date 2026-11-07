@@ -6,6 +6,28 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.8] — 2026-11-07 — TypeScript-only runtime
+
+The visitor collector and HTTP service are now TypeScript, matching the rest of
+the site. No Python remains in the application or deployment.
+
+### Changed
+
+- `webhook.py` and `visitor_log.py` are replaced by `deploy/webhook.ts` and
+  `deploy/visitor-log.ts`, run with `tsx` on Node 22.
+- GeoIP lookup uses the `maxmind` package; CSV parsing uses `csv-parse` and
+  `csv-stringify`; IP classification uses `ipaddr.js`.
+- The GeoIP refresher is `deploy/update-geoip.ts`; the readable table is
+  `pnpm visitors`.
+- The installer now runs `pnpm install` before starting the TypeScript webhook
+  service. Shell remains only for bootstrap, systemd and deploy glue.
+
+### Removed
+
+- Python webhook/collector scripts, the Python GeoIP updater, the Python-based
+  viewer, the standalone font helper and the internal Python planning snippets.
+- The `python3-maxminddb` system dependency.
+
 ## [0.1.7] — 2026-11-07 — Token-protected visitor API
 
 The visitor CSV is now readable over HTTPS without an SSH session.
@@ -45,13 +67,14 @@ visitors and there is no third-party analytics script.
 
 - Caddy JSON access logging for `www.stkcraft.com` at
   `/var/log/caddy/stkscraft-access.log`.
-- `deploy/visitor_log.py`: incremental collector that keeps one CSV row per
-  unique client IP, with first/last seen, hits, country, region, city, last
-  path, referer and user agent.
+- An initial incremental collector (superseded by the TypeScript collector in
+  0.1.8) that keeps one CSV row per unique client IP, with first/last seen,
+  hits, country, region, city, last path, referer and user agent.
 - `stkscraft-visitors.timer`: runs every five minutes.
 - Local DB-IP Lite city database, refreshed monthly by
   `stkscraft-geoip.timer`, with attribution to DB-IP (CC BY 4.0).
-- `deploy/show-visitors.sh` for a readable root-only table over SSH.
+- `deploy/show-visitors.sh` for a readable root-only table over SSH
+  (superseded by `pnpm visitors` in 0.1.8).
 
 ### Security and privacy
 

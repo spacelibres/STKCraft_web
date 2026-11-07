@@ -88,8 +88,8 @@ refreshed monthly by `stkscraft-geoip.timer`.
 
 ```bash
 systemctl list-timers 'stkscraft-*'
-sudo /opt/stkscraft/deploy/show-visitors.sh
-sudo /usr/bin/python3 /opt/stkscraft/deploy/visitor_log.py
+cd /opt/stkscraft && pnpm visitors
+cd /opt/stkscraft && pnpm visitors:collect
 ```
 
 Raw CSV columns: `ip,first_seen_utc,last_seen_utc,hits,country_code,country,region,city,last_path,last_referer,last_user_agent`.

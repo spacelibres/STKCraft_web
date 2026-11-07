@@ -26,7 +26,6 @@ command -v git >/dev/null || die "git is required"
 command -v node >/dev/null || die "Node.js is required (Node 22 tested)"
 command -v pnpm >/dev/null || die "pnpm is required"
 command -v rsync >/dev/null || die "rsync is required"
-command -v python3 >/dev/null || die "python3 is required"
 command -v caddy >/dev/null || die "caddy is required"
 
 log "Fetching STKCraft source into $APP_DIR"
@@ -37,7 +36,7 @@ else
   mkdir -p "$(dirname "$APP_DIR")"
   git clone --branch main --single-branch "$REPO_URL" "$APP_DIR"
 fi
-chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh" "$APP_DIR/deploy/update-geoip.sh" "$APP_DIR/deploy/show-visitors.sh"
+chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh"
 
 log "Creating the web root and webhook secret"
 install -d -m 755 "$WEB_ROOT"
@@ -52,6 +51,10 @@ if [[ ! -s "$SECRET_DIR/visitors.token" ]]; then
 fi
 chmod 600 "$SECRET_DIR/visitors.token"
 
+log "Installing Node dependencies"
+cd "$APP_DIR"
+pnpm install --frozen-lockfile
+
 log "Installing the webhook service"
 install -m 644 "$APP_DIR/deploy/stkscraft-webhook.service" "$SERVICE_FILE"
 install -d -m 755 /etc/systemd/system/caddy.service.d
@@ -62,15 +65,10 @@ systemctl restart stkscraft-webhook.service
 
 
 log "Installing private visitor statistics"
-if ! python3 -c 'import maxminddb' >/dev/null 2>&1; then
-  export DEBIAN_FRONTEND=noninteractive
-  apt-get update -qq
-  apt-get install -y -qq python3-maxminddb
-fi
 install -d -m 700 "$SECRET_DIR" /var/lib/stkscraft /var/lib/stkscraft/geoip
 chmod 750 /var/log/caddy 2>/dev/null || true
 if [[ ! -s /var/lib/stkscraft/geoip/dbip-city.mmdb ]]; then
-  bash "$APP_DIR/deploy/update-geoip.sh"
+  (cd "$APP_DIR" && pnpm exec tsx deploy/update-geoip.ts)
 fi
 install -m 644 "$APP_DIR/deploy/stkscraft-visitors.service" /etc/systemd/system/stkscraft-visitors.service
 install -m 644 "$APP_DIR/deploy/stkscraft-visitors.timer" /etc/systemd/system/stkscraft-visitors.timer
@@ -100,7 +98,7 @@ log "Building and publishing the site"
 "$APP_DIR/deploy/deploy.sh"
 
 log "Collecting the first visitor snapshot"
-/usr/bin/python3 "$APP_DIR/deploy/visitor_log.py" || true
+(cd "$APP_DIR" && pnpm exec tsx deploy/visitor-log.ts) || true
 
 log "Install complete"
 printf '\nSite:    https://%s/\n' "$DOMAIN"

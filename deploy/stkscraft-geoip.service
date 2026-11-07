@@ -4,5 +4,8 @@ Description=Refresh the STKCraft GeoIP database
 [Service]
 Type=oneshot
 User=root
-ExecStart=/bin/bash /opt/stkscraft/deploy/update-geoip.sh
+WorkingDirectory=/opt/stkscraft
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/local/bin/pnpm exec tsx /opt/stkscraft/deploy/update-geoip.ts
+TimeoutStartSec=300
 Nice=10
