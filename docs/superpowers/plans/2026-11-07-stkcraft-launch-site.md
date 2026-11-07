@@ -1,5 +1,9 @@
 # STKCraft Launch Site Implementation Plan
 
+> **Membership status:** STKCraft is independent and preparing to join the ArtCraft Craft family;
+> it is not yet an announced official Craft app. Copy examples below are superseded by this
+> status.
+
 > **Amended 2026-11-07:** the site is implemented with **Next.js 16 App Router + TypeScript**
 > and a static export, not the plain-HTML structure described in the tasks below. See
 > `docs/superpowers/specs/2026-11-07-nextjs-amendment.md` for the final architecture. The visual

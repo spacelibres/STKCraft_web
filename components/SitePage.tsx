@@ -57,7 +57,7 @@ export function SitePage({ lang }: { lang: Lang }) {
     codeRepository: "https://github.com/spacelibres/STKCraft",
     license: "https://github.com/spacelibres/STKCraft/blob/main/LICENSE-APACHE",
     description: c.meta.description,
-    author: { "@type": "Organization", name: "ArtCraft Team", url: "https://getartcraft.com/" },
+    author: { "@type": "Organization", name: "STKCraft contributors" },
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 

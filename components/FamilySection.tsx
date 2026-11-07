@@ -64,6 +64,7 @@ export function FamilySection({ family }: { family: SiteContent["family"] }) {
           {family.seeAll} <span aria-hidden="true">↗</span>
         </a>
       </div>
+      <p className="family-note mono">{family.note}</p>
     </section>
   );
 }

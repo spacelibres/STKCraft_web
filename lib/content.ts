@@ -36,7 +36,7 @@ export const en = {
     primary: "Explore the craft",
     secondary: "View source",
     meta: "Open source · Pure Rust · Early alpha · No subscription",
-    by: "By the ArtCraft team. One more craft in the family.",
+    by: "An independent Craft app, preparing to join the ArtCraft family.",
   },
   craft: {
     kicker: "01 / The craft",
@@ -114,13 +114,13 @@ export const en = {
   },
   family: {
     kicker: "03 / The family",
-    meta: "One more craft",
-    title: "One more craft in the family.",
-    lede: "STKCraft follows the rules shared by every Craft app: open source, native Rust, local files, no subscription, agent-ready. It is built to sit beside PhotoCraft, CADCraft, GridCraft and the rest — same conventions, different domain.",
+    meta: "Preparing to join",
+    title: "Preparing to join the family.",
+    lede: "STKCraft is being built to follow the rules shared by every Craft app: open source, native Rust, local files, no subscription, agent-ready. It is preparing to sit beside PhotoCraft, CADCraft, GridCraft and the rest — same conventions, different domain.",
     featuredName: "STKCraft",
     featuredCategory: "Space mission analysis",
     featuredStatus: "Early alpha",
-    featuredNote: "You are here.",
+    featuredNote: "Preparing to join.",
     apps: [
       { name: "PhotoCraft", category: "Image editor" },
       { name: "VectorCraft", category: "Vector illustration" },
@@ -140,6 +140,7 @@ export const en = {
       { name: "Craft Anything", category: "Software exploration & creation" },
     ],
     seeAll: "See the whole family",
+    note: "STKCraft is an independent project preparing to join the ArtCraft Craft family. It has not yet been announced as an official Craft app.",
   },
   principles: {
     kicker: "04 / Principles",
@@ -228,7 +229,7 @@ export const en = {
   },
   footer: {
     blurb:
-      "Open-source space mission analysis, part of the ArtCraft Craft family. Built in Rust, free to use, yours to inspect.",
+      "Open-source space mission analysis. An independent Craft app preparing to join the ArtCraft family. Built in Rust, free to use, yours to inspect.",
     columns: [
       {
         title: "The craft",
@@ -267,7 +268,7 @@ export const en = {
         ],
       },
     ],
-    copyright: "© 2026 ArtCraft Team and the STKCraft contributors",
+    copyright: "© 2026 STKCraft contributors",
     license: "MIT / Apache-2.0",
     free: "Free and open source",
     trademark:
@@ -320,7 +321,7 @@ export const zh: SiteContent = {
     primary: "探索 STKCraft",
     secondary: "查看源码",
     meta: "开源 · 纯 Rust · 早期 Alpha · 无需订阅",
-    by: "由 ArtCraft 团队打造。Craft 家族的新成员。",
+    by: "一款独立的 Craft 应用，正在准备加入 ArtCraft 家族。",
   },
   craft: {
     kicker: "01 / 产品",
@@ -397,13 +398,13 @@ export const zh: SiteContent = {
   },
   family: {
     kicker: "03 / 家族",
-    meta: "多了一门手艺",
-    title: "家族里，多了一门手艺。",
-    lede: "STKCraft 遵循每一款 Craft 应用共同的规则：开源、原生 Rust、文件留在本地、无需订阅、Agent 就绪。它站在 PhotoCraft、CADCraft、GridCraft 等伙伴身边——同一套规范，不同的领域。",
+    meta: "准备加入",
+    title: "正在准备加入家族。",
+    lede: "STKCraft 正在按每一款 Craft 应用共同的规则构建：开源、原生 Rust、文件留在本地、无需订阅、Agent 就绪。它准备站到 PhotoCraft、CADCraft、GridCraft 等伙伴身边——同一套规范，不同的领域。",
     featuredName: "STKCraft",
     featuredCategory: "空间任务分析",
     featuredStatus: "早期 Alpha",
-    featuredNote: "你在这里。",
+    featuredNote: "准备加入。",
     apps: [
       { name: "PhotoCraft", category: "图像编辑" },
       { name: "VectorCraft", category: "矢量插画" },
@@ -423,6 +424,7 @@ export const zh: SiteContent = {
       { name: "Craft Anything", category: "软件探索与创造" },
     ],
     seeAll: "查看整个家族",
+    note: "STKCraft 是一个独立项目，正在准备加入 ArtCraft Craft 家族；目前尚未被宣布为官方 Craft 应用。",
   },
   principles: {
     kicker: "04 / 原则",
@@ -509,7 +511,7 @@ export const zh: SiteContent = {
     footnote: "早期 Alpha。界面仍会有未完成之处。路线图会告诉你接下来是什么。",
   },
   footer: {
-    blurb: "开源空间任务分析，ArtCraft Craft 家族的一员。用 Rust 构建，免费使用，随时可读。",
+    blurb: "开源空间任务分析。一款正在准备加入 ArtCraft 家族的独立 Craft 应用。用 Rust 构建，免费使用，随时可读。",
     columns: [
       {
         title: "产品",
@@ -548,7 +550,7 @@ export const zh: SiteContent = {
         ],
       },
     ],
-    copyright: "© 2026 ArtCraft Team 与 STKCraft 贡献者",
+    copyright: "© 2026 STKCraft 贡献者",
     license: "MIT / Apache-2.0",
     free: "免费且开源",
     trademark: "ArtCraft 名称、字标与标识是 ArtCraft Team 的商标。STKCraft 是一款独立的 Craft 应用。",

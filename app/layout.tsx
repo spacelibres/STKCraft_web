@@ -42,9 +42,9 @@ export const metadata: Metadata = {
   description:
     "STKCraft is open-source space mission analysis. Build a scenario of satellites, ground stations, sensors and targets, propagate it, and see exactly when one can see another.",
   applicationName: "STKCraft",
-  authors: [{ name: "ArtCraft Team", url: "https://getartcraft.com" }],
-  creator: "ArtCraft Team",
-  publisher: "ArtCraft Team",
+  authors: [{ name: "STKCraft contributors" }],
+  creator: "STKCraft contributors",
+  publisher: "STKCraft contributors",
   other: { license: "MIT OR Apache-2.0" },
   alternates: {
     canonical: "/",

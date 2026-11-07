@@ -326,7 +326,16 @@
 .family-app__category { margin-top: 3px; color: var(--faint); font-size: 11px; line-height: 1.4; }
 .family-app__arrow { position: absolute; right: 14px; top: 14px; color: var(--faint); font-size: 12px; }
 .family-app:hover .family-app__arrow { color: var(--accent); }
-.family-footer { padding: 26px 32px 52px; text-align: right; }
+.family-footer { padding: 26px 32px 8px; text-align: right; }
+.family-note {
+  max-width: 820px;
+  padding: 0 32px 48px;
+  color: var(--faint);
+  font-size: 9px;
+  line-height: 1.6;
+  text-transform: none;
+  letter-spacing: .02em;
+}
 
 /* ---- 04 / Principles ---------------------------------------------------- */
 .principle-grid {
@@ -500,7 +509,8 @@
   .family-feature__mark img { width: 96px; height: 96px; }
   .badge { grid-column: 1 / -1; justify-self: start; }
   .family-grid { grid-template-columns: 1fr 1fr; margin: 0 20px; }
-  .family-footer { padding: 22px 20px 38px; }
+  .family-footer { padding: 22px 20px 8px; }
+  .family-note { padding: 0 20px 34px; }
   .status-grid { grid-template-columns: 1fr; }
   .status-column { padding: 24px 22px 28px; border-right: 0; border-bottom: 1px solid var(--line); }
   .status-callout { flex-direction: column; align-items: flex-start; margin: 0 20px 24px; padding: 22px; }

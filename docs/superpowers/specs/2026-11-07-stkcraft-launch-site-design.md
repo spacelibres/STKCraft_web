@@ -4,6 +4,9 @@
 **Status:** Approved; implementation amended to Next.js + TypeScript  
 **Amendment:** See [`2026-11-07-nextjs-amendment.md`](./2026-11-07-nextjs-amendment.md) for the
 Next.js 16 / TypeScript static-export architecture that supersedes the plain-HTML notes below.
+
+**Membership status:** STKCraft is an independent project preparing to join the ArtCraft Craft
+family. It is not yet an announced official Craft app; copy and metadata must not claim otherwise.
 **Target:** <https://www.stkcraft.com>  
 **Repository:** <https://github.com/spacelibres/STKCraft_web>
 

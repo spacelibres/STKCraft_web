@@ -1,7 +1,11 @@
 # STKCraft — launch site
 
-The official launch site for [STKCraft](https://github.com/spacelibres/STKCraft), built as a
-member of the ArtCraft Craft family.
+The official launch site for [STKCraft](https://github.com/spacelibres/STKCraft), built in the
+visual language of the ArtCraft Craft family while preparing to join it.
+
+STKCraft is an independent project. It has not yet been announced as an official ArtCraft Craft
+app; the family section describes the standard it is preparing to meet and shows the family it
+hopes to join.
 
 **Live:** <https://www.stkcraft.com>  
 **VPS preview:** <http://176.122.160.172:8787/>  
