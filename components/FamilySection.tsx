@@ -14,7 +14,7 @@ export function FamilySection({ family }: { family: SiteContent["family"] }) {
 
       <div className="family-feature" data-reveal>
         <div className="family-feature__mark">
-          <img src="/brand/albatross.svg" alt="" width="128" height="128" />
+          <img src="/brand/albatross.svg?v=0.1.4" alt="" width="128" height="128" />
         </div>
         <div className="family-feature__body">
           <span className="mono">{family.featuredNote}</span>

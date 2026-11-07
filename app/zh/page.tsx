@@ -18,13 +18,13 @@ export const metadata: Metadata = {
     description: c.meta.ogDescription,
     url: "https://www.stkcraft.com/zh/",
     locale: "zh_CN",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: c.meta.ogTitle }],
+    images: [{ url: "/og.png?v=0.1.4", width: 1200, height: 630, alt: c.meta.ogTitle }],
   },
   twitter: {
     card: "summary_large_image",
     title: c.meta.ogTitle,
     description: c.meta.ogDescription,
-    images: ["/og.png"],
+    images: ["/og.png?v=0.1.4"],
   },
 };
 

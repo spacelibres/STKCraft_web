@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     url: "https://www.stkcraft.com/",
     images: [
       {
-        url: "/og.png",
+        url: "/og.png?v=0.1.4",
         width: 1200,
         height: 630,
         alt: "STKCraft — Know when the sky opens.",
@@ -75,11 +75,11 @@ export const metadata: Metadata = {
     title: "STKCraft — Know when the sky opens.",
     description:
       "Open-source space mission analysis. Pure Rust. Native. Agent-ready.",
-    images: ["/og.png"],
+    images: ["/og.png?v=0.1.4"],
   },
   icons: {
-    icon: [{ url: "/icon.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    icon: [{ url: "/icon.png?v=0.1.4", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/apple-touch-icon.png?v=0.1.4", sizes: "180x180" }],
   },
   manifest: "/site.webmanifest",
 };

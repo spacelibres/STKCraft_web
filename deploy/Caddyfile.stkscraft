@@ -6,8 +6,8 @@ www.stkcraft.com {
 	@immutable path /_next/static/*
 	header @immutable Cache-Control "public, max-age=31536000, immutable"
 
-	@assets path *.webp *.png *.jpg *.jpeg *.gif *.svg *.ico *.woff *.woff2
-	header @assets Cache-Control "public, max-age=2592000"
+	@mutable not path /_next/static/*
+	header @mutable Cache-Control "no-cache"
 
 	handle /health {
 		reverse_proxy 127.0.0.1:8788

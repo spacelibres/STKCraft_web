@@ -25,7 +25,7 @@ export function Header({ lang, nav, header }: HeaderProps) {
   return (
     <header className="site-header">
       <a className="site-header__brand" href={`${base}#top`} aria-label="STKCraft home">
-        <img src="/brand/albatross.svg" alt="" width="34" height="34" />
+        <img src="/brand/albatross.svg?v=0.1.4" alt="" width="34" height="34" />
         <span>STKCRAFT</span>
       </a>
 

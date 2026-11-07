@@ -49,7 +49,9 @@ https://www.stkcraft.com/webhook
 - Secret: read `/etc/stkscraft/webhook.secret` on the server
 - Events: just `push`
 
-The receiver ignores pushes to branches other than `main`.
+The receiver ignores pushes to branches other than `main`. A `204` delivery
+means the push was a tag or another ref and was intentionally ignored; `202`
+means a deploy was queued.
 
 `caddy` and `stkscraft-webhook` are both enabled at boot; a systemd drop-in
 sets `Restart=always` for Caddy. The static site itself has no long-running
@@ -83,6 +85,8 @@ sudo /opt/stkscraft/deploy/deploy.sh
 - Port 80: HTTP→HTTPS redirect and ACME challenges
 - Webhook upstream: `127.0.0.1:8788` (loopback only)
 - `8787` is not configured, not listening and not reachable
+- HTML and mutable assets send `Cache-Control: no-cache`; only hashed
+  `/_next/static/*` files are immutable
 - The existing Caddy sites on 80/443 are untouched
 
 The current static export uses root-relative asset paths, so it must be served

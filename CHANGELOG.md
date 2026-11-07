@@ -6,6 +6,27 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.4] — 2026-11-07 — Cache-busted updates
+
+The webhook was deploying, but the logo URL had been cached by browsers for 30
+days. This release makes mutable assets revalidate and gives the changed logo a
+new URL.
+
+### Changed
+
+- Caddy now sends `Cache-Control: no-cache` for HTML and mutable assets. Only
+  hashed `/_next/static/*` files keep the one-year immutable cache.
+- The SVG logo and metadata images carry a version query (`?v=0.1.4`) to bypass
+  already-cached copies.
+- The webhook guide documents that `204` means an ignored tag/non-main ref and
+  `202` means a deploy was queued.
+
+### Fixed
+
+- A push to `main` now updates the visible logo immediately instead of waiting
+  for the previous 30-day browser cache to expire.
+- The VPS build and the live asset hash are verified to match the commit.
+
 ## [0.1.3] — 2026-11-07 — Self-contained blue vector mark
 
 The updated logo now carries its own blue rounded tile, so the page can use the
