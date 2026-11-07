@@ -6,6 +6,16 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.6] — 2026-11-07 — Visitor collector log-rotation fix
+
+### Fixed
+
+- The collector decodes each Caddy log line as UTF-8 explicitly before JSON
+  parsing. A truncated log file can leave NUL padding; `json.loads(bytes)` was
+  auto-detecting UTF-32 and aborting the whole collection run.
+- The production access log was reset cleanly after the initial test so test
+  traffic does not count as a visitor.
+
 ## [0.1.5] — 2026-11-07 — Private unique-visitor CSV
 
 A small, private traffic record for the operator. Nothing is exposed to

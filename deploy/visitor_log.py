@@ -162,8 +162,10 @@ def main() -> int:
         if not raw.strip():
             continue
         try:
-            entry = json.loads(raw)
-        except json.JSONDecodeError:
+            # Decode explicitly: json.loads(bytes) auto-detects UTF-16/32 and can
+            # mistake NUL padding from a log truncation for a different codec.
+            entry = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
             continue
         request = entry.get("request") or {}
         uri = request.get("uri") or ""
