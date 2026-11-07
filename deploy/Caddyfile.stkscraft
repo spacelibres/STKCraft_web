@@ -17,6 +17,10 @@ www.stkcraft.com {
 	@mutable not path /_next/static/*
 	header @mutable Cache-Control "no-cache"
 
+	handle /api/visitors {
+		reverse_proxy 127.0.0.1:8788
+	}
+
 	handle /health {
 		reverse_proxy 127.0.0.1:8788
 	}

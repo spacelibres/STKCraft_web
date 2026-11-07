@@ -40,7 +40,7 @@ FIELDS = [
     "last_referer",
     "last_user_agent",
 ]
-SKIP_PATHS = ("/health", "/webhook")
+SKIP_PATHS = ("/health", "/webhook", "/api/visitors")
 IGNORED_IPS = {
     "127.0.0.1",
     "::1",

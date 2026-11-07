@@ -9,6 +9,8 @@ WorkingDirectory=/opt/stkscraft
 Environment=WEBHOOK_PORT=8788
 Environment=WEBHOOK_SECRET_FILE=/etc/stkscraft/webhook.secret
 Environment=DEPLOY_SCRIPT=/opt/stkscraft/deploy/deploy.sh
+Environment=VISITOR_TOKEN_FILE=/etc/stkscraft/visitors.token
+Environment=VISITOR_CSV=/var/lib/stkscraft/visitors.csv
 ExecStart=/usr/bin/python3 /opt/stkscraft/deploy/webhook.py
 Restart=always
 RestartSec=3

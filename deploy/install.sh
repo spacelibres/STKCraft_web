@@ -47,6 +47,10 @@ if [[ ! -s "$SECRET_FILE" ]]; then
   openssl rand -hex 32 > "$SECRET_FILE"
 fi
 chmod 600 "$SECRET_FILE"
+if [[ ! -s "$SECRET_DIR/visitors.token" ]]; then
+  openssl rand -hex 32 > "$SECRET_DIR/visitors.token"
+fi
+chmod 600 "$SECRET_DIR/visitors.token"
 
 log "Installing the webhook service"
 install -m 644 "$APP_DIR/deploy/stkscraft-webhook.service" "$SERVICE_FILE"

@@ -95,6 +95,20 @@ sudo /usr/bin/python3 /opt/stkscraft/deploy/visitor_log.py
 Raw CSV columns: `ip,first_seen_utc,last_seen_utc,hits,country_code,country,region,city,last_path,last_referer,last_user_agent`.
 GeoIP attribution: <https://db-ip.com> (CC BY 4.0).
 
+### Read-only API
+
+```
+GET https://www.stkcraft.com/api/visitors
+Authorization: Bearer <token>
+# or: ?token=<token>
+# CSV: ?format=csv
+```
+
+The token is `/etc/stkscraft/visitors.token` (0600). The API is handled by the
+same loopback webhook service and routed through Caddy. It is `no-store`,
+`noindex`, has no CORS headers, and is not linked publicly. `/api/visitors`
+requests are excluded from the visitor statistics.
+
 ## Manual operations
 
 ```bash

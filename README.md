@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version 0.1.6" src="https://img.shields.io/badge/version-0.1.6-2d81ff?style=flat-square">
+  <img alt="Version 0.1.7" src="https://img.shields.io/badge/version-0.1.7-2d81ff?style=flat-square">
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="MIT" src="https://img.shields.io/badge/license-MIT-2d81ff?style=flat-square">
@@ -150,7 +150,7 @@ present them as mission output.
 **Every change to the site bumps the smallest version component by one and updates
 [`CHANGELOG.md`](CHANGELOG.md) in the same commit.**
 
-For example, `0.1.6` becomes `0.1.7`. The `version` field in `package.json` is the single source
+For example, `0.1.7` becomes `0.1.8`. The `version` field in `package.json` is the single source
 of truth; `pnpm build` runs `pnpm check:version` first and fails when the newest changelog heading
 does not match.
 
@@ -186,7 +186,31 @@ ssh root@176.122.160.172 'bash /opt/stkscraft/deploy/show-visitors.sh'
 ssh root@176.122.160.172 'cat /var/lib/stkscraft/visitors.csv'
 ```
 
-Implementation: [`deploy/visitor_log.py`](deploy/visitor_log.py).
+### Read-only API
+
+The same data is available through a token-protected endpoint, so no SSH session
+is needed:
+
+```text
+GET https://www.stkcraft.com/api/visitors
+```
+
+Authenticate with `Authorization: Bearer <token>` or, for a browser bookmark,
+`?token=<token>`. JSON is the default; add `&format=csv` to download the CSV.
+
+```bash
+TOKEN=$(ssh root@176.122.160.172 'cat /etc/stkscraft/visitors.token')
+curl -sS -H "Authorization: Bearer $TOKEN" https://www.stkcraft.com/api/visitors
+curl -sS -H "Authorization: Bearer $TOKEN" 'https://www.stkcraft.com/api/visitors?format=csv'
+```
+
+The token is generated on the server at `/etc/stkscraft/visitors.token` (0600).
+The endpoint sends `Cache-Control: no-store` and `X-Robots-Tag: noindex`, has no
+CORS policy, and is not linked from the public page. Rotate it by replacing that
+file and restarting `stkscraft-webhook`.
+
+Implementation: [`deploy/visitor_log.py`](deploy/visitor_log.py) and
+[`deploy/webhook.py`](deploy/webhook.py).
 
 ## Deployment
 

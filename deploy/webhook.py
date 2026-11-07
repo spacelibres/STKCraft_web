@@ -6,18 +6,26 @@ and starts deploy.sh for pushes to main. Caddy exposes it at /webhook.
 """
 from __future__ import annotations
 
+import csv
 import hashlib
 import hmac
+import io
 import json
 import os
 import subprocess
 import sys
 import threading
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from urllib.parse import parse_qs, urlsplit
+
+from visitor_log import FIELDS
 
 HOST = "127.0.0.1"
 PORT = int(os.environ.get("WEBHOOK_PORT", "8788"))
 SECRET_FILE = os.environ.get("WEBHOOK_SECRET_FILE", "/etc/stkscraft/webhook.secret")
+VISITOR_TOKEN_FILE = os.environ.get("VISITOR_TOKEN_FILE", "/etc/stkscraft/visitors.token")
+VISITOR_CSV = os.environ.get("VISITOR_CSV", "/var/lib/stkscraft/visitors.csv")
 DEPLOY = os.environ.get("DEPLOY_SCRIPT", "/opt/stkscraft/deploy/deploy.sh")
 MAX_BODY = 1_000_000
 _lock = threading.Lock()
@@ -28,27 +36,95 @@ def read_secret() -> bytes:
         return handle.read().strip()
 
 
+def read_visitor_rows() -> list[dict[str, str]]:
+    if not os.path.exists(VISITOR_CSV):
+        return []
+    with open(VISITOR_CSV, "r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
+def authorized(handler: "Handler", query: dict[str, list[str]]) -> bool:
+    provided = (query.get("token") or [""])[0]
+    header = handler.headers.get("Authorization", "")
+    if header.lower().startswith("bearer "):
+        provided = header[7:].strip()
+    try:
+        with open(VISITOR_TOKEN_FILE, "r", encoding="utf-8") as handle:
+            expected = handle.read().strip()
+    except OSError:
+        return False
+    return bool(provided and expected and hmac.compare_digest(provided, expected))
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = "STKCraftWebhook/1.0"
 
-    def _send(self, status: int, body: dict[str, str] | str) -> None:
+    def _send(
+        self,
+        status: int,
+        body: dict[str, str] | str,
+        content_type: str | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> None:
         if isinstance(body, dict):
             payload = json.dumps(body).encode()
-            content_type = "application/json"
+            content_type = content_type or "application/json"
         else:
             payload = body.encode()
-            content_type = "text/plain; charset=utf-8"
+            content_type = content_type or "text/plain; charset=utf-8"
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(payload)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Robots-Tag", "noindex, nofollow")
+        for key, value in (headers or {}).items():
+            self.send_header(key, value)
         self.end_headers()
         self.wfile.write(payload)
 
     def do_GET(self) -> None:  # noqa: N802
-        if self.path == "/health":
+        parsed = urlsplit(self.path)
+        if parsed.path == "/health":
             self._send(200, {"ok": True})
-        else:
+            return
+        if parsed.path != "/api/visitors":
             self._send(404, {"error": "not found"})
+            return
+
+        query = parse_qs(parsed.query)
+        if not authorized(self, query):
+            self._send(
+                401,
+                {"error": "unauthorized"},
+                headers={"WWW-Authenticate": 'Bearer realm="STKCraft visitors"'},
+            )
+            return
+
+        rows = read_visitor_rows()
+        if (query.get("format") or ["json"])[0].lower() == "csv":
+            output = io.StringIO()
+            writer = csv.DictWriter(output, fieldnames=FIELDS, extrasaction="ignore")
+            writer.writeheader()
+            writer.writerows(rows)
+            self._send(
+                200,
+                output.getvalue(),
+                content_type="text/csv; charset=utf-8",
+                headers={"Content-Disposition": 'attachment; filename="stkscraft-visitors.csv"'},
+            )
+            return
+
+        self._send(
+            200,
+            {
+                "count": len(rows),
+                "generated_at": datetime.now(timezone.utc)
+                .isoformat(timespec="seconds")
+                .replace("+00:00", "Z"),
+                "fields": FIELDS,
+                "rows": rows,
+            },
+        )
 
     def do_POST(self) -> None:  # noqa: N802
         if self.path.split("?", 1)[0] != "/webhook":
