@@ -13,7 +13,7 @@ without touching an existing Caddy site.
 ```
 
 The webhook receiver listens on `127.0.0.1:8788` and is exposed by Caddy at
-`http://<server>:8787/webhook`. It validates GitHub's
+`https://www.stkcraft.com/webhook` (or the IP URL below). It validates GitHub's
 `X-Hub-Signature-256`, accepts only `refs/heads/main`, and starts
 `deploy/deploy.sh`. The deploy script pulls, builds, and swaps the live static
 root only after a successful build.
@@ -42,7 +42,7 @@ The script is idempotent. It does not stop or modify the existing
 Create a repository webhook pointing at:
 
 ```
-http://176.122.160.172:8787/webhook
+https://www.stkcraft.com/webhook
 ```
 
 - Content type: `application/json`
@@ -51,12 +51,16 @@ http://176.122.160.172:8787/webhook
 
 The receiver ignores pushes to branches other than `main`.
 
+`caddy` and `stkscraft-webhook` are both enabled at boot; a systemd drop-in
+sets `Restart=always` for Caddy. The static site itself has no long-running
+Node process.
+
 To create it with the GitHub CLI from a machine with `gh` authenticated:
 
 ```bash
 gh api --method POST repos/spacelibres/STKCraft_web/hooks \
   -f name=web -F active=true -f 'events[]=push' \
-  -f 'config[url]=http://176.122.160.172:8787/webhook' \
+  -f 'config[url]=https://www.stkcraft.com/webhook' \
   -f 'config[content_type]=json' \
   -f "config[secret]=$(ssh root@176.122.160.172 'cat /etc/stkscraft/webhook.secret')"
 ```
@@ -79,7 +83,7 @@ sudo /opt/stkscraft/deploy/deploy.sh
 - Webhook upstream: `127.0.0.1:8788`
 - The existing Caddy sites on ports 80/443 are untouched.
 
-The Caddy config also contains a `www.stkscraft.com, stkscraft.com` block. Once
+The Caddy config also contains a `www.stkcraft.com, stkcraft.com` block. Once
 DNS points those names at `176.122.160.172`, Caddy obtains the certificate and
 serves the same static root over HTTPS; no redeploy is needed. The current
 static export uses root-relative asset paths, so it must be served at the root

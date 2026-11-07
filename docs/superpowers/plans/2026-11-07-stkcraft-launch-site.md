@@ -7,7 +7,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build and publish the official STKCraft launch site at `https://www.stkscraft.com` — an ArtCraft-family editorial page with an original albatross identity, a live orbital demo, English/Chinese copy, and light/dark themes.
+**Goal:** Build and publish the official STKCraft launch site at `https://www.stkcraft.com` — an ArtCraft-family editorial page with an original albatross identity, a live orbital demo, English/Chinese copy, and light/dark themes.
 
 **Architecture:** A static site with no build step: semantic HTML (English source), layered CSS, and small ES modules for theme, language, navigation, reveals, the orbital canvas and the workspace demo. GitHub Pages serves the repository root; a GitHub Actions workflow deploys every push to `main`.
 
@@ -23,11 +23,11 @@
 - The albatross mark is original SVG artwork made for this repository.
 - Do not claim installers, downloads or official ArtCraft directory inclusion that do not exist.
 - No analytics, tracking pixels, cookies or third-party scripts.
-- Canonical URL: `https://www.stkscraft.com/`.
+- Canonical URL: `https://www.stkcraft.com/`.
 - The page must remain readable with JavaScript disabled.
 - `prefers-reduced-motion: reduce` removes all non-essential motion.
 - WCAG AA contrast in both themes; every control keyboard-reachable and labelled.
-- Deployment target: repository root on GitHub Pages with `CNAME` = `www.stkscraft.com`.
+- Deployment target: repository root on GitHub Pages with `CNAME` = `www.stkcraft.com`.
 - Code and original artwork licence: MIT.
 - Visual QA viewports: 1440×1000, 1024×768, 768×1024, 390×844.
 
@@ -322,7 +322,7 @@ button { color: inherit; }
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>STKCraft — Space mission analysis, in the open</title>
   <meta name="description" content="STKCraft is open-source space mission analysis. Build a scenario of satellites, ground stations, sensors and targets, propagate it, and see exactly when one can see another.">
-  <link rel="canonical" href="https://www.stkscraft.com/">
+  <link rel="canonical" href="https://www.stkcraft.com/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -458,7 +458,7 @@ Expected: at 32px the silhouette, eye and beak direction are still legible; at 5
 
 Use Playwright to screenshot `assets/brand/albatross.svg` at 512×512 and 180×180 with transparent/blue backgrounds, saving `assets/app-icon-512.png` and `assets/apple-touch-icon.png`.
 
-Create a temporary `og.html` (keep it in `tests/` or delete after use) with a 1200×630 canvas: `STKCRAFT` in Archivo, the albatross at 180px, the line "Know when the sky opens.", and `www.stkscraft.com`. Screenshot to `assets/og.png`. Check that the text is not clipped and the image is under 300KB.
+Create a temporary `og.html` (keep it in `tests/` or delete after use) with a 1200×630 canvas: `STKCRAFT` in Archivo, the albatross at 180px, the line "Know when the sky opens.", and `www.stkcraft.com`. Screenshot to `assets/og.png`. Check that the text is not clipped and the image is under 300KB.
 
 - [ ] **Step 5: Add the web manifest**
 
@@ -1069,7 +1069,7 @@ git commit -m "feat: complete the page and Chinese edition"
 
 Add:
 - `<meta name="theme-color" content="#f2f1ee">`
-- Open Graph: `og:type=website`, `og:site_name=STKCraft`, `og:title`, `og:description`, `og:url=https://www.stkscraft.com/`, `og:image=https://www.stkscraft.com/assets/og.png`, `og:image:width=1200`, `og:image:height=630`.
+- Open Graph: `og:type=website`, `og:site_name=STKCraft`, `og:title`, `og:description`, `og:url=https://www.stkcraft.com/`, `og:image=https://www.stkcraft.com/assets/og.png`, `og:image:width=1200`, `og:image:height=630`.
 - Twitter: `summary_large_image`, title, description, image.
 - `<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">`
 - `<link rel="manifest" href="assets/site.webmanifest">`
@@ -1087,7 +1087,7 @@ Reuse the header/footer and styles, with a large `404`, "This orbit does not exi
 ```txt
 User-agent: *
 Allow: /
-Sitemap: https://www.stkscraft.com/sitemap.xml
+Sitemap: https://www.stkcraft.com/sitemap.xml
 ```
 
 `sitemap.xml` with the single canonical URL and `lastmod`.
@@ -1137,14 +1137,14 @@ git commit -m "feat: add metadata, accessibility and site docs"
 
 **Interfaces:**
 - Consumes: complete static site.
-- Produces: deployment on every push to `main`; custom domain `www.stkscraft.com`.
+- Produces: deployment on every push to `main`; custom domain `www.stkcraft.com`.
 
 - [ ] **Step 1: Add `CNAME` and `.nojekyll`**
 
 `CNAME` exactly:
 
 ```txt
-www.stkscraft.com
+www.stkcraft.com
 ```
 
 `.nojekyll` is empty.
@@ -1203,7 +1203,7 @@ Then set the custom domain:
 
 ```powershell
 gh api -X PUT repos/spacelibres/STKCraft_web/pages `
-  -f cname=www.stkscraft.com `
+  -f cname=www.stkcraft.com `
   -F https_enforced=true
 ```
 
@@ -1227,8 +1227,8 @@ Add to README:
 - [ ] **Step 6: Verify custom domain when DNS is available**
 
 ```powershell
-Resolve-DnsName www.stkscraft.com -Type CNAME
-Invoke-WebRequest https://www.stkscraft.com/ -UseBasicParsing
+Resolve-DnsName www.stkcraft.com -Type CNAME
+Invoke-WebRequest https://www.stkcraft.com/ -UseBasicParsing
 ```
 
 Expected: CNAME to `spacelibres.github.io`, HTTP 200 over HTTPS. If DNS is not configured, report the exact records the user must add; do not claim the domain is live.

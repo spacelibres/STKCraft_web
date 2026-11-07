@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: "STKCraft",
     title: c.meta.ogTitle,
     description: c.meta.ogDescription,
-    url: "https://www.stkscraft.com/zh/",
+    url: "https://www.stkcraft.com/zh/",
     locale: "zh_CN",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: c.meta.ogTitle }],
   },

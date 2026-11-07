@@ -53,7 +53,7 @@ export function SitePage({ lang }: { lang: Lang }) {
     name: "STKCraft",
     applicationCategory: "ScienceApplication",
     operatingSystem: "macOS, Windows, Linux, FreeBSD, Web",
-    url: "https://www.stkscraft.com/",
+    url: "https://www.stkcraft.com/",
     codeRepository: "https://github.com/spacelibres/STKCraft",
     license: "https://github.com/spacelibres/STKCraft/blob/main/LICENSE-APACHE",
     description: c.meta.description,

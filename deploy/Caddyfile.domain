@@ -1,6 +1,6 @@
-# Enable only after www.stkscraft.com and stkscraft.com resolve to this VPS.
+# Enable after www.stkcraft.com resolves to this VPS.
 # Install as /etc/caddy/conf.d/stkscraft-domain.caddy and reload Caddy.
-www.stkscraft.com {
+www.stkcraft.com {
 	encode gzip
 
 	@immutable path /_next/static/*
@@ -9,9 +9,19 @@ www.stkscraft.com {
 	@assets path *.webp *.png *.jpg *.jpeg *.gif *.svg *.ico *.woff *.woff2
 	header @assets Cache-Control "public, max-age=2592000"
 
-	root * /var/www/stkscraft
-	try_files {path} {path}/ {path}/index.html /404.html
-	file_server
+	handle /health {
+		reverse_proxy 127.0.0.1:8788
+	}
+
+	handle /webhook {
+		reverse_proxy 127.0.0.1:8788
+	}
+
+	handle {
+		root * /var/www/stkscraft
+		try_files {path} {path}/ {path}/index.html /404.html
+		file_server
+	}
 
 	header {
 		X-Content-Type-Options nosniff

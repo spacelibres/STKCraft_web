@@ -3,7 +3,7 @@
 The official launch site for [STKCraft](https://github.com/spacelibres/STKCraft), built as a
 member of the ArtCraft Craft family.
 
-**Live:** <https://www.stkscraft.com>  
+**Live:** <https://www.stkcraft.com>  
 **VPS preview:** <http://176.122.160.172:8787/>  
 **Repository:** <https://github.com/spacelibres/STKCraft_web>
 
@@ -121,7 +121,7 @@ There are two deployments:
 
 1. Push to `main`.
 2. In **Settings → Pages**, set the source to **GitHub Actions**.
-3. Set the custom domain to `www.stkscraft.com`.
+3. Set the custom domain to `www.stkcraft.com`.
 4. Add the DNS records below.
 5. Enable **Enforce HTTPS** after GitHub verifies the domain.
 

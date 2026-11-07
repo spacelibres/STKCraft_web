@@ -4,7 +4,7 @@
 **Status:** Approved; implementation amended to Next.js + TypeScript  
 **Amendment:** See [`2026-11-07-nextjs-amendment.md`](./2026-11-07-nextjs-amendment.md) for the
 Next.js 16 / TypeScript static-export architecture that supersedes the plain-HTML notes below.
-**Target:** <https://www.stkscraft.com>  
+**Target:** <https://www.stkcraft.com>  
 **Repository:** <https://github.com/spacelibres/STKCraft_web>
 
 ## 1. Purpose
@@ -296,7 +296,7 @@ assets/favicon.svg
 assets/og.png              social card
 assets/fonts/              Archivo, Inter, Instrument Serif, Geist Mono (OFL)
 assets/icons/              original UI icons
-CNAME                      www.stkscraft.com
+CNAME                      www.stkcraft.com
 .nojekyll
 robots.txt
 sitemap.xml
@@ -353,13 +353,13 @@ claims to be SGP4 output.
 
 - GitHub Actions workflow builds nothing; it uploads the repository root as the Pages
   artifact and deploys on every push to `main`.
-- `CNAME` contains `www.stkscraft.com`; `.nojekyll` is present.
+- `CNAME` contains `www.stkcraft.com`; `.nojekyll` is present.
 - GitHub Pages custom domain is set through the repository API when the site is enabled.
 - DNS is outside this repository: `www` needs a CNAME to `spacelibres.github.io`, and the apex
   needs GitHub Pages' four A records. The README documents both.
 - The site must also work at `https://spacelibres.github.io/STKCraft_web/` while DNS is being
   configured. All internal links are relative.
-- Canonical URL: `https://www.stkscraft.com/`.
+- Canonical URL: `https://www.stkcraft.com/`.
 
 ## 10. Out of scope
 
@@ -382,7 +382,7 @@ claims to be SGP4 output.
 9. No broken links; GitHub, Discord, ArtCraft and release links resolve.
 10. Lighthouse ≥ 95 in all four categories on desktop and ≥ 90 on mobile.
 11. `python -m http.server` serves the site from any subpath; Pages deployment succeeds.
-12. `https://www.stkscraft.com` serves the site with a valid certificate once DNS is set.
+12. `https://www.stkcraft.com` serves the site with a valid certificate once DNS is set.
 
 ## 12. Open questions for review
 

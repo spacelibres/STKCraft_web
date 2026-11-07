@@ -34,7 +34,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.stkscraft.com"),
+  metadataBase: new URL("https://www.stkcraft.com"),
   title: {
     default: "STKCraft — Space mission analysis, in the open",
     template: "%s — STKCraft",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "STKCraft — Know when the sky opens.",
     description:
       "Open-source space mission analysis. Build the scenario, propagate the orbit, and read the access window.",
-    url: "https://www.stkscraft.com/",
+    url: "https://www.stkcraft.com/",
     images: [
       {
         url: "/og.png",

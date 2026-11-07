@@ -51,8 +51,10 @@ chmod 600 "$SECRET_FILE"
 
 log "Installing the webhook service"
 install -m 644 "$APP_DIR/deploy/stkscraft-webhook.service" "$SERVICE_FILE"
+install -d -m 755 /etc/systemd/system/caddy.service.d
+install -m 644 "$APP_DIR/deploy/caddy-restart.conf" /etc/systemd/system/caddy.service.d/stkscraft-restart.conf
 systemctl daemon-reload
-systemctl enable stkscraft-webhook.service
+systemctl enable --now caddy stkscraft-webhook.service
 systemctl restart stkscraft-webhook.service
 
 log "Installing the isolated Caddy site block on :$SITE_PORT"
