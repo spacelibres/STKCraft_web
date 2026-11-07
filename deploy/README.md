@@ -79,7 +79,8 @@ sudo /opt/stkscraft/deploy/deploy.sh
 - Webhook upstream: `127.0.0.1:8788`
 - The existing Caddy sites on ports 80/443 are untouched.
 
-To use `www.stkscraft.com`, add a DNS record to this server and replace the
-`:8787` site address with the domain, then reload Caddy. The current static
-export uses root-relative asset paths, so it must be served at the root of its
-site address.
+The Caddy config also contains a `www.stkscraft.com, stkscraft.com` block. Once
+DNS points those names at `176.122.160.172`, Caddy obtains the certificate and
+serves the same static root over HTTPS; no redeploy is needed. The current
+static export uses root-relative asset paths, so it must be served at the root
+of its site address.
