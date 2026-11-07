@@ -190,23 +190,23 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 11px;
+  width: 10px;
   height: 1px;
   background: var(--ink);
-  opacity: .46;
+  opacity: .55;
 }
-.ruler__row.is-major .ruler__tick { width: 21px; opacity: .8; }
+.ruler__row.is-major .ruler__tick { width: 20px; opacity: .88; }
 .ruler__num {
   position: absolute;
   top: 0;
-  right: 27px;
+  right: 24px;
   transform: translateY(-50%);
   font-family: var(--font-mono);
   font-size: 9px;
   line-height: 1.5;
   letter-spacing: .08em;
   color: var(--ink);
-  opacity: .5;
+  opacity: .55;
   font-variant-numeric: tabular-nums;
 }
 .ruler__cursor {

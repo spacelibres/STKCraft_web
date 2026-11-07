@@ -6,6 +6,23 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.10] — 2026-11-07 — Ruler density matched to ArtCraft
+
+The 0–100 scale was structurally right but stretched by our longer page, so
+5% occupied more vertical space than the official rail and the 1% ticks looked
+sparse.
+
+### Fixed
+
+- The ruler scale now uses the rail height (7.5× the usable rail) instead of
+  the document height. At a 1000px viewport, 5% is ~348px, matching ArtCraft.
+- At 50% scroll, the 45/50/55 labels land at roughly 176/524/872px; the
+  official rail measures roughly 177/523/870px.
+- Increased minor tick contrast and restored the official geometry: 20px major
+  ticks, 10px minor ticks, labels 24px from the right edge.
+- The 0–100 endpoints now stay at the top and bottom of the rail regardless of
+  document length, so 100% remains visible.
+
 ## [0.1.9] — 2026-11-07 — ArtCraft-style page ruler
 
 The right side is now a real 0–100 page-position instrument instead of a

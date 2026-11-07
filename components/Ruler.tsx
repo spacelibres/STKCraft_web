@@ -9,7 +9,8 @@ export function Ruler() {
   const scaleRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
-  const [scaleHeight, setScaleHeight] = useState(0);
+  const [scaleSpan, setScaleSpan] = useState(0);
+  const metrics = useRef({ span: 0, railHeight: 0 });
 
   useEffect(() => {
     const root = document.documentElement;
@@ -17,8 +18,13 @@ export function Ruler() {
 
     const measure = () => {
       const header = Number.parseFloat(getComputedStyle(root).getPropertyValue("--header")) || 48;
-      const height = Math.max(window.innerHeight - header, root.scrollHeight - header - 24);
-      setScaleHeight((current) => (Math.abs(current - height) > 1 ? height : current));
+      const railHeight = Math.max(0, window.innerHeight - header);
+      // The official rail keeps 5% at roughly 347px on a 1000px viewport.
+      // Scale to the rail, not to the document height, so a long page does not
+      // stretch the tick spacing.
+      const span = Math.max(0, railHeight - 24) * 7.5;
+      metrics.current = { span, railHeight };
+      setScaleSpan((current) => (Math.abs(current - span) > 1 ? span : current));
     };
 
     const update = () => {
@@ -28,7 +34,9 @@ export function Ruler() {
       const progress = ratio * 100;
 
       if (scaleRef.current) {
-        scaleRef.current.style.transform = `translate3d(0, ${-root.scrollTop}px, 0)`;
+        const { span, railHeight } = metrics.current;
+        const target = ratio * Math.max(0, railHeight - 24);
+        scaleRef.current.style.transform = `translate3d(0, ${target - ratio * span}px, 0)`;
       }
       if (cursorRef.current) {
         cursorRef.current.style.top = `${progress}%`;
@@ -79,7 +87,7 @@ export function Ruler() {
       aria-label="Page position"
     >
       <div className="ruler__veil" aria-hidden="true" />
-      <div className="ruler__scale" ref={scaleRef} style={{ height: scaleHeight }}>
+      <div className="ruler__scale" ref={scaleRef} style={{ height: scaleSpan }}>
         {TICKS.map((tick) => {
           const major = tick % 5 === 0;
           return (
