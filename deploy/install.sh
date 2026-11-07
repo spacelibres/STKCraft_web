@@ -38,7 +38,7 @@ else
   mkdir -p "$(dirname "$APP_DIR")"
   git clone --branch main --single-branch "$REPO_URL" "$APP_DIR"
 fi
-chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh"
+chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh" "$APP_DIR/deploy/enable-domain.sh"
 
 log "Creating the web root and webhook secret"
 install -d -m 755 "$WEB_ROOT"
