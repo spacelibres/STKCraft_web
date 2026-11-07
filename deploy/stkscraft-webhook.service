@@ -1,0 +1,19 @@
+[Unit]
+Description=STKCraft GitHub push webhook
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/stkscraft
+Environment=WEBHOOK_PORT=8788
+Environment=WEBHOOK_SECRET_FILE=/etc/stkscraft/webhook.secret
+Environment=DEPLOY_SCRIPT=/opt/stkscraft/deploy/deploy.sh
+ExecStart=/usr/bin/python3 /opt/stkscraft/deploy/webhook.py
+Restart=always
+RestartSec=3
+NoNewPrivileges=yes
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
