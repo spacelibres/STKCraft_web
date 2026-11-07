@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version 0.1.4" src="https://img.shields.io/badge/version-0.1.4-2d81ff?style=flat-square">
+  <img alt="Version 0.1.5" src="https://img.shields.io/badge/version-0.1.5-2d81ff?style=flat-square">
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="MIT" src="https://img.shields.io/badge/license-MIT-2d81ff?style=flat-square">
@@ -48,6 +48,7 @@ A single-page, bilingual product site with:
 - an interactive, illustrative mission workspace (globe, orbit, station, access windows);
 - the ArtCraft family context and the standard STKCraft is preparing to meet;
 - an honest early-alpha status and roadmap;
+- private, root-only unique-IP visitor statistics (never exposed on the site);
 - English at `/`, Chinese at `/zh/`;
 - light and dark themes, following the system preference and remembering a manual choice;
 - a static export deployed to a VPS and refreshed by GitHub webhook.
@@ -149,7 +150,7 @@ present them as mission output.
 **Every change to the site bumps the smallest version component by one and updates
 [`CHANGELOG.md`](CHANGELOG.md) in the same commit.**
 
-For example, `0.1.4` becomes `0.1.5`. The `version` field in `package.json` is the single source
+For example, `0.1.5` becomes `0.1.6`. The `version` field in `package.json` is the single source
 of truth; `pnpm build` runs `pnpm check:version` first and fails when the newest changelog heading
 does not match.
 
@@ -162,6 +163,30 @@ Release flow:
 
 There is **one development branch: `main`**. Feature branches are temporary, merged and deleted.
 The old `feat/launch-site` branch and the GitHub Pages `gh-pages` branch have been removed.
+
+## Private visitor statistics
+
+There is no public analytics dashboard. Caddy writes JSON access logs, and a
+systemd timer turns them into a private CSV on the server.
+
+- Access log: `/var/log/caddy/stkscraft-access.log` (directory `0750 caddy:caddy`)
+- CSV: `/var/lib/stkscraft/visitors.csv` (`0600 root:root`, outside `/var/www`)
+- One row per unique IP: first/last seen, hits, country code/country, region,
+  city, last path, last referer and last user agent
+- `localhost`, private ranges, `/health` and `/webhook` requests are excluded
+- Collector: `stkscraft-visitors.timer` every five minutes
+- GeoIP: local DB-IP Lite city database, refreshed monthly by
+  `stkscraft-geoip.timer`; attribution: <https://db-ip.com> (CC BY 4.0)
+
+View it over SSH only:
+
+```bash
+ssh root@176.122.160.172 'bash /opt/stkscraft/deploy/show-visitors.sh'
+# or the raw file
+ssh root@176.122.160.172 'cat /var/lib/stkscraft/visitors.csv'
+```
+
+Implementation: [`deploy/visitor_log.py`](deploy/visitor_log.py).
 
 ## Deployment
 

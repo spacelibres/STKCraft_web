@@ -10,6 +10,9 @@ without touching an existing Caddy site.
 /var/www/stkscraft          published static files (Caddy root)
 /etc/stkscraft/webhook.secret  GitHub webhook HMAC secret (0600)
 /etc/caddy/conf.d/stkscraft.caddy  HTTPS site for www.stkcraft.com
+/var/log/caddy/stkscraft-access.log  private JSON access log
+/var/lib/stkscraft/visitors.csv      private unique-IP CSV (0600)
+/var/lib/stkscraft/geoip/dbip-city.mmdb  local DB-IP Lite city database
 ```
 
 The webhook receiver listens only on `127.0.0.1:8788` and is exposed by Caddy at
@@ -69,6 +72,28 @@ gh api --method POST repos/spacelibres/STKCraft_web/hooks \
 
 Do not commit the secret. The receiver is only exposed through the HTTPS
 `www.stkcraft.com` site; its upstream stays on loopback.
+
+## Private visitor statistics
+
+Caddy writes a JSON access log for `www.stkcraft.com`. A one-shot systemd
+service, triggered every five minutes by `stkscraft-visitors.timer`, reads new
+lines and maintains one row per unique client IP in
+`/var/lib/stkscraft/visitors.csv`.
+
+The CSV is `0600 root:root` and lives outside the web root. There is no public
+endpoint, dashboard or client-side tracker. Loopback/private ranges,
+`/health` and `/webhook` are ignored. The collector also stores coarse
+country/region/city from the local DB-IP Lite city database; the database is
+refreshed monthly by `stkscraft-geoip.timer`.
+
+```bash
+systemctl list-timers 'stkscraft-*'
+sudo /opt/stkscraft/deploy/show-visitors.sh
+sudo /usr/bin/python3 /opt/stkscraft/deploy/visitor_log.py
+```
+
+Raw CSV columns: `ip,first_seen_utc,last_seen_utc,hits,country_code,country,region,city,last_path,last_referer,last_user_agent`.
+GeoIP attribution: <https://db-ip.com> (CC BY 4.0).
 
 ## Manual operations
 

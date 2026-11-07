@@ -1,0 +1,9 @@
+[Unit]
+Description=STKCraft unique visitor CSV collector
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/python3 /opt/stkscraft/deploy/visitor_log.py
+Nice=10

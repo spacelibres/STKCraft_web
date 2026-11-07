@@ -3,6 +3,14 @@
 www.stkcraft.com {
 	encode gzip
 
+	log {
+		output file /var/log/caddy/stkscraft-access.log {
+			roll_size 20MiB
+			roll_keep 10
+		}
+		format json
+	}
+
 	@immutable path /_next/static/*
 	header @immutable Cache-Control "public, max-age=31536000, immutable"
 

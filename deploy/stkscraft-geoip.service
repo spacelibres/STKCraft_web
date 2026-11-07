@@ -1,0 +1,8 @@
+[Unit]
+Description=Refresh the STKCraft GeoIP database
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/bash /opt/stkscraft/deploy/update-geoip.sh
+Nice=10

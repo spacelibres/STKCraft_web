@@ -20,7 +20,7 @@ fi
 cd "$APP_DIR"
 git fetch --prune origin main
 git reset --hard origin/main
-chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh"
+chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh" "$APP_DIR/deploy/update-geoip.sh" "$APP_DIR/deploy/show-visitors.sh"
 echo "HEAD $(git rev-parse --short HEAD) $(git log -1 --pretty=%s)"
 
 command -v pnpm >/dev/null || { echo "pnpm is required"; exit 1; }

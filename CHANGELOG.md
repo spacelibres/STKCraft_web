@@ -6,6 +6,29 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.5] — 2026-11-07 — Private unique-visitor CSV
+
+A small, private traffic record for the operator. Nothing is exposed to
+visitors and there is no third-party analytics script.
+
+### Added
+
+- Caddy JSON access logging for `www.stkcraft.com` at
+  `/var/log/caddy/stkscraft-access.log`.
+- `deploy/visitor_log.py`: incremental collector that keeps one CSV row per
+  unique client IP, with first/last seen, hits, country, region, city, last
+  path, referer and user agent.
+- `stkscraft-visitors.timer`: runs every five minutes.
+- Local DB-IP Lite city database, refreshed monthly by
+  `stkscraft-geoip.timer`, with attribution to DB-IP (CC BY 4.0).
+- `deploy/show-visitors.sh` for a readable root-only table over SSH.
+
+### Security and privacy
+
+- CSV at `/var/lib/stkscraft/visitors.csv`, mode `0600`, outside the web root.
+- Log directory `0750 caddy:caddy`; no public endpoint or dashboard.
+- Loopback/private addresses, `/health` and `/webhook` are excluded.
+
 ## [0.1.4] — 2026-11-07 — Cache-busted updates
 
 The webhook was deploying, but the logo URL had been cached by browsers for 30
