@@ -95,6 +95,13 @@
   border-inline: 1px solid var(--line);
 }
 
+@media (min-width: 1180px) {
+  .frame,
+  .site-footer__inner {
+    width: min(calc(100% - (var(--gutter) * 2) - 120px), var(--frame));
+  }
+}
+
 @media (max-width: 1180px) {
   .site-nav a { padding: 0 12px; }
 }

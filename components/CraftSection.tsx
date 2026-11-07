@@ -17,6 +17,7 @@ export function CraftSection({ craft }: { craft: SiteContent["craft"] }) {
         {craft.cards.map((card) => (
           <article className="feature" key={card.index} data-reveal>
             <span className="mono feature__index">{card.index}</span>
+            <span className="feature__ghost" aria-hidden="true">{card.index}</span>
             <h3>{card.title}</h3>
             <p>{card.body}</p>
           </article>

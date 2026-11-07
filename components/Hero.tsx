@@ -6,6 +6,11 @@ export function Hero({ hero }: { hero: SiteContent["hero"] }) {
     <section id="top" className="hero frame" aria-labelledby="hero-title">
       <HeroCanvas />
       <div className="hero__clear" aria-hidden="true" />
+      <div className="hero__cue" aria-hidden="true">
+        <span className="mono">Scroll</span>
+        <span className="hero__cue-line" />
+        <span className="mono">00—100</span>
+      </div>
       <div className="hero__inner">
         <p className="mono hero__eyebrow" data-reveal>{hero.eyebrow}</p>
         <div className="hero__wordmark" role="img" aria-label={hero.wordmark} data-reveal>

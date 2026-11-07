@@ -1,31 +1,101 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const TICKS = Array.from({ length: 101 }, (_, index) => index);
 
 export function Ruler() {
+  const railRef = useRef<HTMLDivElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const readoutRef = useRef<HTMLSpanElement>(null);
+  const [scaleHeight, setScaleHeight] = useState(0);
+
   useEffect(() => {
     const root = document.documentElement;
+    let frame = 0;
+
+    const measure = () => {
+      const header = Number.parseFloat(getComputedStyle(root).getPropertyValue("--header")) || 48;
+      const height = Math.max(window.innerHeight - header, root.scrollHeight - header - 24);
+      setScaleHeight((current) => (Math.abs(current - height) > 1 ? height : current));
+    };
+
     const update = () => {
+      frame = 0;
       const max = root.scrollHeight - root.clientHeight;
       const ratio = max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0;
-      root.style.setProperty("--progress", `${(ratio * 100).toFixed(2)}%`);
+      const progress = ratio * 100;
+
+      if (scaleRef.current) {
+        scaleRef.current.style.transform = `translate3d(0, ${-root.scrollTop}px, 0)`;
+      }
+      if (cursorRef.current) {
+        cursorRef.current.style.top = `${progress}%`;
+        cursorRef.current.classList.toggle("is-visible", root.scrollTop > 2);
+      }
+      if (readoutRef.current) {
+        readoutRef.current.textContent = String(Math.round(progress)).padStart(3, "0");
+      }
+      scaleRef.current?.querySelectorAll<HTMLElement>(".ruler__row.is-major").forEach((row) => {
+        row.classList.toggle("is-current", Math.abs(Number(row.dataset.value) - progress) < 1.5);
+      });
+      railRef.current?.setAttribute("aria-valuenow", String(Math.round(progress)));
     };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      measure();
+      update();
+    };
+
+    measure();
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    const observer = new ResizeObserver(onResize);
+    observer.observe(document.body);
+
     return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      observer.disconnect();
+      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
 
   return (
-    <div className="ruler" aria-hidden="true">
-      <div className="ruler__progress" />
-      <div className="ruler__labels">
-        {Array.from({ length: 11 }, (_, index) => (
-          <span key={index} style={{ top: `${index * 10}%` }}>{index * 10}</span>
-        ))}
+    <div
+      ref={railRef}
+      className="ruler"
+      role="scrollbar"
+      aria-controls="main"
+      aria-orientation="vertical"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={0}
+      aria-label="Page position"
+    >
+      <div className="ruler__veil" aria-hidden="true" />
+      <div className="ruler__scale" ref={scaleRef} style={{ height: scaleHeight }}>
+        {TICKS.map((tick) => {
+          const major = tick % 5 === 0;
+          return (
+            <div className={`ruler__row${major ? " is-major" : ""}`} style={{ top: `${tick}%` }} data-value={tick} key={tick}>
+              <span className="ruler__tick" />
+              {major ? <span className="ruler__num">{tick}</span> : null}
+            </div>
+          );
+        })}
+        <div className="ruler__cursor" ref={cursorRef}>
+          <span className="ruler__cursor-line" />
+          <span className="ruler__cursor-readout">
+            <span ref={readoutRef}>000</span>
+            <span className="ruler__cursor-percent">%</span>
+          </span>
+        </div>
       </div>
     </div>
   );

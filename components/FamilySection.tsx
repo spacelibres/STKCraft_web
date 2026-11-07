@@ -1,4 +1,7 @@
+import type { CSSProperties } from "react";
 import type { SiteContent } from "@/lib/content";
+
+const TONES = ["#2d81ff", "#e5484d", "#8e4ec6", "#f2a900", "#d6409f", "#30a46c", "#12a594", "#f76b15"];
 
 export function FamilySection({ family }: { family: SiteContent["family"] }) {
   return (
@@ -35,6 +38,7 @@ export function FamilySection({ family }: { family: SiteContent["family"] }) {
               target="_blank"
               rel="noopener noreferrer"
               data-reveal
+              style={{ "--app-tone": TONES[index % TONES.length] } as CSSProperties}
             >
               <span className="mono family-app__index">{String(index + 1).padStart(2, "0")}</span>
               <span className="family-app__arrow" aria-hidden="true">↗</span>

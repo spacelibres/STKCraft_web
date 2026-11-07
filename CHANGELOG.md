@@ -6,6 +6,35 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.9] — 2026-11-07 — ArtCraft-style page ruler
+
+The right side is now a real 0–100 page-position instrument instead of a
+section list mixed with a progress line.
+
+### Changed
+
+- Replaced the old section-index/ruler overlap with a fixed 60px ruler:
+  labels every 5%, minor ticks every 1%, a moving document scale, a live
+  three-digit percent readout, and a blue cursor line.
+- Added the same soft blur and left-edge fade as the ArtCraft rail, with a
+  restrained light/dark treatment.
+- Moved the fixed section index to the left of the ruler so it no longer covers
+  the tick labels. It now has a bolder active state and accent rule.
+- Added a reserved rail gutter at wide viewports; the ruler hides below 1180px
+  and the section index below 1200px.
+- Added visual density without changing the content: blue section markers,
+  oversized ghost indexes in the craft cards, hover rules on feature and
+  principle cards, coloured category dots on family cards, a subtle hero tint
+  and a 00–100 scroll cue.
+- Slightly tightened the hero wordmark and subhead so the first screen breathes
+  more like the official site.
+
+### Fixed
+
+- The ruler no longer collides with the section navigation.
+- The current major label is hidden under the live percentage cursor, so 50 and
+  050% do not stack on top of each other.
+
 ## [0.1.8] — 2026-11-07 — TypeScript-only runtime
 
 The visitor collector and HTTP service are now TypeScript, matching the rest of
