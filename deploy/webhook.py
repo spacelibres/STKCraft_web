@@ -96,13 +96,14 @@ class Handler(BaseHTTPRequestHandler):
             return
         try:
             subprocess.Popen(
-                [DEPLOY],
+                ["/bin/bash", DEPLOY],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 close_fds=True,
             )
         except OSError as error:
             _lock.release()
+            print(f"cannot start deploy: {error}", file=sys.stderr, flush=True)
             self._send(500, {"error": f"cannot start deploy: {error}"})
             return
 
