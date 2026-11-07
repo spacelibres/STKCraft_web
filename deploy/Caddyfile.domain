@@ -1,6 +1,6 @@
 # Enable only after www.stkscraft.com and stkscraft.com resolve to this VPS.
 # Install as /etc/caddy/conf.d/stkscraft-domain.caddy and reload Caddy.
-www.stkscraft.com, stkscraft.com {
+www.stkscraft.com {
 	encode gzip
 
 	@immutable path /_next/static/*
