@@ -20,7 +20,7 @@
   text-decoration: none;
   flex: 0 0 auto;
 }
-.site-header__brand img { width: 26px; height: 26px; border-radius: 7px; }
+.site-header__brand img { width: 26px; height: 26px; }
 .site-header__brand span {
   font-family: var(--font-display);
   font-weight: 750;

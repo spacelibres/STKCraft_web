@@ -273,7 +273,7 @@
     linear-gradient(120deg, color-mix(in srgb, var(--accent) 9%, transparent), transparent 55%),
     var(--bg-raised);
 }
-.family-feature__mark img { width: 88px; height: 88px; border-radius: 22px; box-shadow: 0 12px 30px rgba(45, 129, 255, .18); }
+.family-feature__mark img { width: 88px; height: 88px; box-shadow: 0 12px 30px rgba(45, 129, 255, .18); }
 .family-feature__body .mono { color: var(--accent-ink); font-size: 9px; }
 .family-feature__body h3 { margin-top: 7px; font-size: clamp(1.7rem, 2.6vw, 2.3rem); }
 .family-feature__body p { margin-top: 4px; color: var(--muted); font-size: 14px; }
@@ -433,7 +433,7 @@
   padding: 38px 32px;
   border-right: 1px solid var(--line);
 }
-.footer-brand img { width: 54px; height: 54px; border-radius: 14px; }
+.footer-brand img { width: 54px; height: 54px; }
 .footer-brand p {
   margin-top: 22px;
   max-width: 280px;
@@ -489,7 +489,7 @@
   .workspace-shell { padding: 0 12px 20px; }
   .annotation { padding: 20px 22px 24px; }
   .family-feature { grid-template-columns: 70px minmax(0, 1fr); margin: 0 20px 20px; padding: 18px; gap: 16px; }
-  .family-feature__mark img { width: 64px; height: 64px; border-radius: 16px; }
+  .family-feature__mark img { width: 64px; height: 64px; }
   .badge { grid-column: 1 / -1; justify-self: start; }
   .family-grid { grid-template-columns: 1fr 1fr; margin: 0 20px; }
   .family-footer { padding: 22px 20px 38px; }

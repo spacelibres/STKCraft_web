@@ -10,7 +10,7 @@ member of the ArtCraft Craft family.
 
 A single-page, bilingual product site with:
 
-- a giant STKCraft wordmark and an original albatross identity;
+- a giant STKCraft wordmark and the STKCraft albatross-in-flight identity;
 - an interactive, illustrative mission workspace (globe, orbit, station, access windows);
 - the ArtCraft family story and shared principles;
 - an honest early-alpha status and roadmap;
@@ -68,7 +68,7 @@ app/
   page.tsx              English landing page and metadata
   zh/page.tsx           Chinese landing page and metadata
   not-found.tsx         404
-  icon.svg              favicon (the albatross mark)
+  icon.png              favicon / app icon (the albatross mark)
   fonts/                self-hosted WOFF2 files
   globals.css           CSS entry point
 components/
@@ -87,7 +87,9 @@ styles/
   sections.css          page sections
   console.css           the dark app window
 public/
-  brand/albatross.svg   original mark
+  brand/albatross.svg   albatross mark (blue background master)
+  brand/albatross-flight.svg  transparent artwork master
+  brand/albatross.png   512px UI mark
   og.png                social card
   app-icon-512.png      app icon
   apple-touch-icon.png  iOS icon
@@ -145,7 +147,8 @@ The repository cannot configure DNS. Until the records exist, the site is availa
 ## Licensing
 
 - Site code: MIT (see `LICENSE`).
-- Albatross artwork: original work for this repository, MIT.
+- STKCraft albatross artwork: supplied project artwork, © the STKCraft/ArtCraft team.
+  The site code is MIT; the artwork is not relicensed by that grant.
 - Fonts: SIL Open Font License. Licence texts are in `public/fonts/licenses/`.
 - Natural Earth 110m land: public domain. Source noted in `lib/land.ts`.
 - ArtCraft name and marks: trademarks of the ArtCraft Team, used nominatively. No ArtCraft

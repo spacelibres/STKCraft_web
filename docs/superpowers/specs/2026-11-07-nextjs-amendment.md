@@ -34,3 +34,11 @@ copy, identity, interaction model and deployment target are unchanged.
 - `pnpm typecheck` passes.
 - Static export contains `CNAME`, `robots.txt`, `sitemap.xml`, `og.png` and the icons.
 - Browser verification covers both themes, both languages and 1440/1024/768/390 widths.
+
+## Identity amendment (2026-11-07)
+
+The supplied **albatross-in-flight engraving** replaces the earlier hand-drawn head mark. It is
+shown on the ArtCraft accent blue (`#2d81ff`) with a rounded-square silhouette. The transparent
+master is `public/brand/albatross-flight.svg`; the blue master is `public/brand/albatross.svg`;
+the 512px UI asset is `public/brand/albatross.png`. The favicon and app icon are generated from
+the blue master.
