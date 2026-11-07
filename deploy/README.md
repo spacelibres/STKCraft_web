@@ -9,11 +9,11 @@ without touching an existing Caddy site.
 /opt/stkscraft              git clone of this repository (main)
 /var/www/stkscraft          published static files (Caddy root)
 /etc/stkscraft/webhook.secret  GitHub webhook HMAC secret (0600)
-/etc/caddy/conf.d/stkscraft.caddy  isolated Caddy site on :8787
+/etc/caddy/conf.d/stkscraft.caddy  HTTPS site for www.stkcraft.com
 ```
 
-The webhook receiver listens on `127.0.0.1:8788` and is exposed by Caddy at
-`https://www.stkcraft.com/webhook` (or the IP URL below). It validates GitHub's
+The webhook receiver listens only on `127.0.0.1:8788` and is exposed by Caddy at
+`https://www.stkcraft.com/webhook`. It validates GitHub's
 `X-Hub-Signature-256`, accepts only `refs/heads/main`, and starts
 `deploy/deploy.sh`. The deploy script pulls, builds, and swaps the live static
 root only after a successful build.
@@ -34,8 +34,8 @@ sudo bash deploy/install.sh
 ```
 
 The script is idempotent. It does not stop or modify the existing
-`tile8.spacexway.com` Caddy site; it adds an isolated `:8787` block via
-`/etc/caddy/conf.d/`.
+`tile8.spacexway.com` Caddy site; it installs a separate HTTPS site for
+`www.stkcraft.com` via `/etc/caddy/conf.d/`.
 
 ## GitHub webhook
 
@@ -65,8 +65,8 @@ gh api --method POST repos/spacelibres/STKCraft_web/hooks \
   -f "config[secret]=$(ssh root@176.122.160.172 'cat /etc/stkscraft/webhook.secret')"
 ```
 
-Do not commit the secret. For a production domain with HTTPS, put the same
-Caddy block behind a TLS site address and point the webhook at that URL.
+Do not commit the secret. The receiver is only exposed through the HTTPS
+`www.stkcraft.com` site; its upstream stays on loopback.
 
 ## Manual operations
 
@@ -79,12 +79,11 @@ sudo /opt/stkscraft/deploy/deploy.sh
 
 ## Caddy and ports
 
-- Public site: `:8787`
-- Webhook upstream: `127.0.0.1:8788`
-- The existing Caddy sites on ports 80/443 are untouched.
+- Public site: `https://www.stkcraft.com/` on **443**
+- Port 80: HTTP→HTTPS redirect and ACME challenges
+- Webhook upstream: `127.0.0.1:8788` (loopback only)
+- `8787` is not configured, not listening and not reachable
+- The existing Caddy sites on 80/443 are untouched
 
-The Caddy config also contains a `www.stkcraft.com, stkcraft.com` block. Once
-DNS points those names at `176.122.160.172`, Caddy obtains the certificate and
-serves the same static root over HTTPS; no redeploy is needed. The current
-static export uses root-relative asset paths, so it must be served at the root
-of its site address.
+The current static export uses root-relative asset paths, so it must be served
+at the root of its site address.

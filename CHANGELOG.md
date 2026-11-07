@@ -6,6 +6,35 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.2] — 2026-11-07 — Vector identity and HTTPS-only serving
+
+The supplied vector logo is now what the page actually uses, and the temporary
+public port is gone.
+
+### Changed
+
+- Header, family feature and footer logos now load `public/brand/albatross.svg`
+  directly, with the ArtCraft blue supplied by CSS. The favicon, Apple icon and
+  Open Graph card are regenerated from that same vector.
+- The public site is served only over HTTPS on `www.stkcraft.com`; port 80
+  redirects and answers ACME. The webhook remains on
+  `https://www.stkcraft.com/webhook`, with its upstream on loopback.
+
+### Removed
+
+- The public `:8787` Caddy site and every `http://176.122.160.172:8787/`
+  reference.
+- The separate `Caddyfile.domain` / `enable-domain.sh` step; the HTTPS site is
+  now the only installed Caddy block.
+- The obsolete transparent `albatross-flight.svg` master.
+
+### Fixed
+
+- The page no longer uses a PNG rendering of an older logo; it uses the current
+  vector artwork.
+- The default branch, README, About panel, release tags and changelog all agree
+  on the current state of the repository.
+
 ## [0.1.1] — 2026-11-07 — Repository hygiene and launch metadata
 
 A cleanup release: the site is live on the VPS, the repository is back to one development branch,

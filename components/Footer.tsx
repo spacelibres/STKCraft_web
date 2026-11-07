@@ -18,7 +18,7 @@ export function Footer({ lang, footer, header }: FooterProps) {
       <div className="site-footer__inner">
         <div className="footer-grid">
           <div className="footer-brand">
-            <img src="/brand/albatross.png" alt="" width="56" height="56" />
+            <img src="/brand/albatross.svg" alt="" width="56" height="56" />
             <p>{footer.blurb}</p>
             <span className="mono">STKCRAFT / ART CRAFT FAMILY</span>
           </div>

@@ -11,9 +11,8 @@ APP_DIR="${APP_DIR:-/opt/stkscraft}"
 WEB_ROOT="${WEB_ROOT:-/var/www/stkscraft}"
 SECRET_DIR="${SECRET_DIR:-/etc/stkscraft}"
 SECRET_FILE="$SECRET_DIR/webhook.secret"
-SITE_PORT="${SITE_PORT:-8787}"
 WEBHOOK_PORT="${WEBHOOK_PORT:-8788}"
-PUBLIC_IP="${PUBLIC_IP:-176.122.160.172}"
+DOMAIN="${DOMAIN:-www.stkcraft.com}"
 CADDYFILE="${CADDYFILE:-/etc/caddy/Caddyfile}"
 CADDY_CONF_DIR="${CADDY_CONF_DIR:-/etc/caddy/conf.d}"
 CADDY_SITE="$CADDY_CONF_DIR/stkscraft.caddy"
@@ -38,7 +37,7 @@ else
   mkdir -p "$(dirname "$APP_DIR")"
   git clone --branch main --single-branch "$REPO_URL" "$APP_DIR"
 fi
-chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh" "$APP_DIR/deploy/enable-domain.sh"
+chmod +x "$APP_DIR/deploy/deploy.sh" "$APP_DIR/deploy/install.sh"
 
 log "Creating the web root and webhook secret"
 install -d -m 755 "$WEB_ROOT"
@@ -57,7 +56,7 @@ systemctl daemon-reload
 systemctl enable --now caddy stkscraft-webhook.service
 systemctl restart stkscraft-webhook.service
 
-log "Installing the isolated Caddy site block on :$SITE_PORT"
+log "Installing the HTTPS Caddy site block for $DOMAIN"
 install -d -m 755 "$CADDY_CONF_DIR"
 install -m 644 "$APP_DIR/deploy/Caddyfile.stkscraft" "$CADDY_SITE"
 BACKUP="${CADDYFILE}.stkscraft-backup.$(date +%Y%m%d%H%M%S)"
@@ -78,8 +77,8 @@ log "Building and publishing the site"
 "$APP_DIR/deploy/deploy.sh"
 
 log "Install complete"
-printf '\nSite:    http://%s:%s/\n' "$PUBLIC_IP" "$SITE_PORT"
-printf 'Health:  http://%s:%s/health (webhook service)\n' "$PUBLIC_IP" "$SITE_PORT"
-printf 'Webhook: http://%s:%s/webhook\n' "$PUBLIC_IP" "$SITE_PORT"
+printf '\nSite:    https://%s/\n' "$DOMAIN"
+printf 'Health:  https://%s/health\n' "$DOMAIN"
+printf 'Webhook: https://%s/webhook\n' "$DOMAIN"
 printf 'Secret:  %s\n' "$SECRET_FILE"
 printf '\nThe webhook accepts only push events for refs/heads/main.\n'
