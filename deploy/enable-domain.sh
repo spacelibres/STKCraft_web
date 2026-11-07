@@ -8,4 +8,4 @@ if ! caddy validate --config /etc/caddy/Caddyfile; then
   exit 1
 fi
 systemctl reload caddy
-echo "Domain enabled: https://www.stkcraft.com/ and https://stkcraft.com/"
+echo "Domain enabled: https://www.stkcraft.com/"
