@@ -151,5 +151,7 @@ The repository cannot configure DNS. Until the records exist, the site is availa
   The site code is MIT; the artwork is not relicensed by that grant.
 - Fonts: SIL Open Font License. Licence texts are in `public/fonts/licenses/`.
 - Natural Earth 110m land: public domain. Source noted in `lib/land.ts`.
-- ArtCraft name and marks: trademarks of the ArtCraft Team, used nominatively. No ArtCraft
-  artwork or code is included.
+- ArtCraft app icons in `public/apps/` are the official marks of the corresponding Craft apps,
+  loaded from `getartcraft.com` and used to identify the family. They remain © the ArtCraft
+  Team and are not relicensed by this repository's MIT grant.
+- ArtCraft name and marks are trademarks of the ArtCraft Team.

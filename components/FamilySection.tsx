@@ -25,21 +25,33 @@ export function FamilySection({ family }: { family: SiteContent["family"] }) {
       </div>
 
       <div className="family-grid">
-        {family.apps.map((app, index) => (
-          <a
-            className="family-app"
-            key={app.name}
-            href={`https://getartcraft.com/apps/${app.name.toLowerCase().replace(/\s+/g, "-")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-reveal
-          >
-            <span className="mono family-app__index">{String(index + 1).padStart(2, "0")}</span>
-            <span className="family-app__name">{app.name}</span>
-            <span className="family-app__category">{app.category}</span>
-            <span className="family-app__arrow" aria-hidden="true">↗</span>
-          </a>
-        ))}
+        {family.apps.map((app, index) => {
+          const slug = app.name.toLowerCase().replace(/\s+/g, "-");
+          return (
+            <a
+              className="family-app"
+              key={app.name}
+              href={`https://getartcraft.com/apps/${slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-reveal
+            >
+              <span className="mono family-app__index">{String(index + 1).padStart(2, "0")}</span>
+              <span className="family-app__arrow" aria-hidden="true">↗</span>
+              <img
+                className="family-app__icon"
+                src={`/apps/${slug}.webp`}
+                alt=""
+                width="52"
+                height="52"
+                loading="eager"
+                decoding="async"
+              />
+              <span className="family-app__name">{app.name}</span>
+              <span className="family-app__category">{app.category}</span>
+            </a>
+          );
+        })}
       </div>
 
       <div className="family-footer">

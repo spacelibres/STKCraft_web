@@ -299,8 +299,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 128px;
-  padding: 18px 18px 20px;
+  min-height: 184px;
+  padding: 16px 18px 20px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   text-decoration: none;
@@ -308,8 +308,16 @@
 }
 .family-app:hover { background: var(--bg-raised); }
 .family-app__index { color: var(--faint); font-size: 8px; }
+.family-app__icon {
+  width: 52px;
+  height: 52px;
+  margin-top: 18px;
+  border-radius: 13px;
+  background: var(--bg-sunken);
+  box-shadow: 0 6px 16px rgba(16, 16, 20, .13);
+}
 .family-app__name {
-  margin-top: auto;
+  margin-top: 14px;
   font-family: var(--font-display);
   font-weight: 620;
   font-size: 1.15rem;
@@ -513,7 +521,7 @@
   .section-body { padding: 46px 18px 38px; }
   .section-head { padding: 0 18px; }
   .family-grid { grid-template-columns: 1fr; }
-  .family-app { min-height: 110px; }
+  .family-app { min-height: 156px; }
   .status-column { padding: 22px 18px 24px; }
   .status-callout { margin: 0 14px 20px; }
   .status-callout__actions { width: 100%; }

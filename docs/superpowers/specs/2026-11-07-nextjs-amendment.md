@@ -42,3 +42,9 @@ shown on the ArtCraft accent blue (`#2d81ff`) with a rounded-square silhouette. 
 master is `public/brand/albatross-flight.svg`; the blue master is `public/brand/albatross.svg`;
 the 512px UI asset is `public/brand/albatross.png`. The favicon and app icon are generated from
 the blue master.
+
+## Family icons amendment
+
+By direct request, the family grid now displays the official icons of the sixteen current ArtCraft
+Craft apps. The WebP files live in `public/apps/` and are loaded from `getartcraft.com`; they are
+used nominatively to identify the family and remain the ArtCraft Team's marks.
