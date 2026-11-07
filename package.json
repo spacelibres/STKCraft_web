@@ -1,14 +1,14 @@
 {
   "name": "stkcraft-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
-  "description": "The official STKCraft launch site — an ArtCraft family page.",
+  "description": "Official STKCraft launch site — open-source space mission analysis.",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/check-version.mjs && next build",
     "typecheck": "tsc --noEmit",
-    "qa": "node scripts/qa.mjs"
+    "check:version": "node scripts/check-version.mjs"
   },
   "dependencies": {
     "@types/d3-geo": "^3.1.1",

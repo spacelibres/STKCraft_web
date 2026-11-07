@@ -1,4 +1,24 @@
-# STKCraft — launch site
+<p align="center">
+  <img src="public/brand/albatross.png" width="120" alt="STKCraft albatross logo">
+</p>
+
+<h1 align="center">STKCraft</h1>
+
+<p align="center"><strong>Know when the sky opens.</strong></p>
+
+<p align="center">
+  <a href="https://www.stkcraft.com">Live site</a> ·
+  <a href="https://www.stkcraft.com/zh/">中文</a> ·
+  <a href="https://github.com/spacelibres/STKCraft">Product source</a> ·
+  <a href="CHANGELOG.md">Changelog</a>
+</p>
+
+<p align="center">
+  <img alt="Version 0.1.1" src="https://img.shields.io/badge/version-0.1.1-2d81ff?style=flat-square">
+  <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white">
+  <img alt="MIT" src="https://img.shields.io/badge/license-MIT-2d81ff?style=flat-square">
+</p>
 
 The official launch site for [STKCraft](https://github.com/spacelibres/STKCraft), built in the
 visual language of the ArtCraft Craft family while preparing to join it.
@@ -7,25 +27,34 @@ STKCraft is an independent project. It has not yet been announced as an official
 app; the family section describes the standard it is preparing to meet and shows the family it
 hopes to join.
 
-**Live:** <https://www.stkcraft.com>  
-**VPS preview:** <http://176.122.160.172:8787/>  
-**Repository:** <https://github.com/spacelibres/STKCraft_web>
+## About
+
+**STKCraft** is open-source space mission analysis: build a scenario of satellites, ground
+stations, sensors and targets, propagate it, and read the access windows. This repository is its
+public launch site — a bilingual, static Next.js site deployed on a VPS and updated from GitHub
+through a signed push webhook.
+
+- **Website:** <https://www.stkcraft.com>
+- **Chinese:** <https://www.stkcraft.com/zh/>
+- **Product source:** <https://github.com/spacelibres/STKCraft>
+- **Deployment:** Caddy on the VPS, port `8787` origin, HTTPS on `www.stkcraft.com`
+- **Repository:** <https://github.com/spacelibres/STKCraft_web>
 
 ## What this is
 
 A single-page, bilingual product site with:
 
-- a giant STKCraft wordmark and the STKCraft albatross-in-flight identity;
+- the STKCraft wordmark and albatross-in-flight identity;
 - an interactive, illustrative mission workspace (globe, orbit, station, access windows);
-- the ArtCraft family story and shared principles;
+- the ArtCraft family context and the standard STKCraft is preparing to meet;
 - an honest early-alpha status and roadmap;
 - English at `/`, Chinese at `/zh/`;
 - light and dark themes, following the system preference and remembering a manual choice;
-- a static export deployed to GitHub Pages.
+- a static export deployed to a VPS and refreshed by GitHub webhook.
 
 The page is design-led: warm paper, 1px rules, Archivo display type, Instrument Serif accents,
 Geist Mono labels and the ArtCraft blue. It follows the family's visual rules; it does not copy
-ArtCraft artwork, icons or page code.
+ArtCraft page code.
 
 ## Stack
 
@@ -35,7 +64,7 @@ ArtCraft artwork, icons or page code.
 - **d3-geo** for the orthographic globe
 - plain CSS with custom properties (no CSS framework)
 - self-hosted, OFL-licensed fonts
-- GitHub Actions → GitHub Pages
+- Caddy on the VPS, GitHub push webhook for deployment
 
 ## Local development
 
@@ -59,10 +88,11 @@ Preview the exported site:
 python -m http.server 4173 --directory out
 ```
 
-Type-check only:
+Type-check and version check:
 
 ```sh
 pnpm typecheck
+pnpm check:version
 ```
 
 ## Project structure
@@ -95,11 +125,12 @@ public/
   brand/albatross.svg   albatross mark (blue background master)
   brand/albatross-flight.svg  transparent artwork master
   brand/albatross.png   512px UI mark
+  apps/                 official ArtCraft app icons used in the family grid
   og.png                social card
   app-icon-512.png      app icon
   apple-touch-icon.png  iOS icon
-  CNAME                 custom domain
   robots.txt, sitemap.xml
+deploy/                 VPS installer, Caddy config and webhook receiver
 ```
 
 ## Editing copy
@@ -114,44 +145,52 @@ The demo readouts (pass windows, elevation, range) are computed in `components/M
 from a fixed, illustrative circular orbit. They are labelled **not SGP4** on the page. Do not
 present them as mission output.
 
+## Versioning and changelog
+
+**Every change to the site bumps the smallest version component by one and updates
+[`CHANGELOG.md`](CHANGELOG.md) in the same commit.**
+
+For example, `0.1.1` becomes `0.1.2`. The `version` field in `package.json` is the single source
+of truth; `pnpm build` runs `pnpm check:version` first and fails when the newest changelog heading
+does not match.
+
+Release flow:
+
+1. Update `package.json` and add a `## [x.y.z] — title` section to `CHANGELOG.md`.
+2. Run `pnpm check:version && pnpm build`.
+3. Commit with a message that names the release, then push `main`.
+4. The GitHub webhook deploys the commit to the VPS automatically.
+
+There is **one development branch: `main`**. Feature branches are temporary, merged and deleted.
+The old `feat/launch-site` branch and the GitHub Pages `gh-pages` branch have been removed.
+
 ## Deployment
 
-There are two deployments:
+The site is served by Caddy on the VPS at `https://www.stkcraft.com/`, from
+`/var/www/stkscraft`. Pushing to `main` triggers the GitHub webhook at
+`https://www.stkcraft.com/webhook`; the receiver validates `X-Hub-Signature-256`, pulls, builds
+and swaps the live root only after a successful build.
 
-- **GitHub Pages** — `.github/workflows/pages.yml` installs, builds and deploys `out/` on every
-  push to `main`.
-- **VPS** — `/opt/stkscraft` builds the same `main` branch and publishes to `/var/www/stkscraft`
-  behind Caddy on `:8787`. A GitHub push webhook hits `/webhook`; see [`deploy/README.md`](deploy/README.md).
+- Installer: [`deploy/install.sh`](deploy/install.sh)
+- Deploy script: [`deploy/deploy.sh`](deploy/deploy.sh)
+- Webhook receiver: [`deploy/webhook.py`](deploy/webhook.py)
+- Caddy config: [`deploy/Caddyfile.stkscraft`](deploy/Caddyfile.stkscraft)
+- Operations guide: [`deploy/README.md`](deploy/README.md)
 
-1. Push to `main`.
-2. In **Settings → Pages**, set the source to **GitHub Actions**.
-3. Set the custom domain to `www.stkcraft.com`.
-4. Add the DNS records below.
-5. Enable **Enforce HTTPS** after GitHub verifies the domain.
+There is no GitHub Pages deployment and no GitHub Actions workflow. The only automatic deploy
+path is the signed webhook.
 
 ### DNS
 
-For the `www` host:
+`www.stkcraft.com` points at the VPS:
 
 | Type | Name | Value |
 |---|---|---|
-| CNAME | `www` | `spacelibres.github.io` |
+| A | `www` | `176.122.160.172` |
+| AAAA | `www` | `2607:8700:5501:67ab::2` |
 
-For the apex domain:
-
-| Type | Name | Value |
-|---|---|---|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-| AAAA | `@` | `2606:50c0:8000::153` |
-| AAAA | `@` | `2606:50c0:8001::153` |
-| AAAA | `@` | `2606:50c0:8002::153` |
-| AAAA | `@` | `2606:50c0:8003::153` |
-
-The repository cannot configure DNS. Until the records exist, the site is available at
-`https://spacelibres.github.io/STKCraft_web/`.
+Caddy manages the Let's Encrypt certificate. The apex `stkcraft.com` is not currently published.
+The old GitHub Pages A/CNAME records are no longer used.
 
 ## Licensing
 
