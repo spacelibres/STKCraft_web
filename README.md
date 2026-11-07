@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version 0.1.2" src="https://img.shields.io/badge/version-0.1.2-2d81ff?style=flat-square">
+  <img alt="Version 0.1.3" src="https://img.shields.io/badge/version-0.1.3-2d81ff?style=flat-square">
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="MIT" src="https://img.shields.io/badge/license-MIT-2d81ff?style=flat-square">
@@ -122,7 +122,7 @@ styles/
   sections.css          page sections
   console.css           the dark app window
 public/
-  brand/albatross.svg   albatross vector master (transparent; page supplies the blue tile)
+  brand/albatross.svg   albatross vector mark with its own blue tile
   brand/albatross.png   512px blue mark for README/social
   apps/                 official ArtCraft app icons used in the family grid
   og.png                social card
@@ -149,7 +149,7 @@ present them as mission output.
 **Every change to the site bumps the smallest version component by one and updates
 [`CHANGELOG.md`](CHANGELOG.md) in the same commit.**
 
-For example, `0.1.2` becomes `0.1.3`. The `version` field in `package.json` is the single source
+For example, `0.1.3` becomes `0.1.4`. The `version` field in `package.json` is the single source
 of truth; `pnpm build` runs `pnpm check:version` first and fails when the newest changelog heading
 does not match.
 

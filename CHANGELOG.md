@@ -6,6 +6,31 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.3] — 2026-11-07 — Self-contained blue vector mark
+
+The updated logo now carries its own blue rounded tile, so the page can use the
+vector exactly as supplied.
+
+### Changed
+
+- Replaced `public/brand/albatross.svg` with the latest supplied vector. It
+  includes the blue `#2d81ff` rounded background and the engraving.
+- Header, family feature and footer images now load the SVG as-is, with no CSS
+  padding, background or extra rounding. The vector fills its tile at every
+  size.
+- Regenerated the favicon, Apple Touch Icon and Open Graph card from the new
+  self-contained SVG.
+
+### Removed
+
+- The CSS blue-tile wrapper and padding that were needed for the previous
+  transparent SVG.
+
+### Fixed
+
+- The logo is now a true vector on the page at all sizes; no PNG is used for
+  the page identity.
+
 ## [0.1.2] — 2026-11-07 — Vector identity and HTTPS-only serving
 
 The supplied vector logo is now what the page actually uses, and the temporary
