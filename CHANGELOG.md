@@ -6,6 +6,16 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.12] — 2026-11-13 — GeoCalc deployment design
+
+### Added
+
+- Source-verified deployment design for an independent GeoCalc service and
+  bilingual home-page module links, including the existing STKCraft-time bridge.
+- Public-access request budgets, process resource limits, pinned-kernel setup,
+  acceptance checks and rollback requirements for architecture review.
+- Recorded outstanding DNS and SSH prerequisites; no live deployment is claimed.
+
 ## [0.1.11] — 2026-11-07 — Footer-aware section menu
 
 At the end of the page the fixed section index now gets out of the footer's way
