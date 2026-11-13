@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img alt="Version 0.1.14" src="https://img.shields.io/badge/version-0.1.14-2d81ff?style=flat-square">
+  <img alt="Version 0.1.15" src="https://img.shields.io/badge/version-0.1.15-2d81ff?style=flat-square">
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?style=flat-square&logo=nextdotjs">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178c6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="MIT" src="https://img.shields.io/badge/license-MIT-2d81ff?style=flat-square">
@@ -150,7 +150,7 @@ present them as mission output.
 **Every change to the site bumps the smallest version component by one and updates
 [`CHANGELOG.md`](CHANGELOG.md) in the same commit.**
 
-For example, `0.1.14` becomes `0.1.15`. The `version` field in `package.json` is the single source
+For example, `0.1.15` becomes `0.1.16`. The `version` field in `package.json` is the single source
 of truth; `pnpm build` runs `pnpm check:version` first and fails when the newest changelog heading
 does not match.
 
@@ -215,8 +215,8 @@ shell is only the one-time bootstrap/deploy glue.
 
 ## Deployment
 
-The VPS also checks GitHub every five minutes for main-site, GeoCalc and time
-updates. See [automatic update operations](deploy/auto-update/README.md).
+Signed GitHub webhooks trigger main-site, GeoCalc and time updates. Scheduled
+polling is disabled. See [automatic update operations](deploy/auto-update/README.md).
 
 GeoCalc runs independently at <https://geocalc.stkcraft.com/>. Both home-page
 languages link to it and to the GeoCalc and STKCraft-time module repositories.

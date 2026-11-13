@@ -1,9 +1,14 @@
 # GitHub-driven VPS updates
 
-The VPS systemd timer checks the public main branches of STKCraft_web,
-STKCraft-Geocalc and STKCraft-time every five minutes and after boot. No
-GitHub token or webhook delivery is required for polling. The existing signed
-main-site webhook remains available as the faster path.
+GitHub push webhooks from STKCraft_web, STKCraft-Geocalc and STKCraft-time all
+target https://www.stkcraft.com/webhook using the existing server-held HMAC
+secret and application/json. Only authenticated main-branch pushes from these
+three repositories are accepted. The receiver writes a durable pending marker;
+systemd.path activates the existing verified update service. Pushes received
+during a build remain pending and trigger another reconciliation after it ends.
+The five-minute polling timer is disabled. The path watcher starts at boot and
+also notices a pending marker left by a reboot. No GitHub API token is stored
+on the VPS.
 
 The main site uses its existing build-before-publish deployment. GeoCalc is
 built in a fresh candidate checkout with the exact current time repository
@@ -28,17 +33,19 @@ Changes to privileged deployment configuration require operator review;
 application source updates are automatic.
 
 ```sh
-systemctl enable --now stkcraft-auto-update.timer
+systemctl disable --now stkcraft-auto-update.timer
+systemctl enable --now stkcraft-auto-update.path
 systemctl start stkcraft-auto-update.service
 python3 /etc/stkcraft-auto-update/test_rollback.py
-systemctl list-timers stkcraft-auto-update.timer
+systemctl status stkcraft-auto-update.path
 journalctl -u stkcraft-auto-update.service -n 100
 cat /var/lib/stkcraft-auto-update/web
 cat /var/lib/stkcraft-auto-update/geocalc
 ```
 
-No-change checks skip rebuilds. A failed build leaves the prior revision in
-the state files so a later timer run retries. A single flock prevents overlap
-between pollers. Existing main-site deployments retain their separate lock.
+No-change requests skip rebuilds. A failed build leaves the prior revision in
+the state files; redeliver the GitHub push or start the update service manually
+to retry. A single flock prevents overlapping update jobs. Existing main-site
+deployments retain their separate lock.
 The main-site and GeoCalc build scripts also share a build lock to avoid
 competing memory-intensive builds on the 2 GiB VPS.

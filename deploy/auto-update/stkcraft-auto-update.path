@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch durable STKCraft GitHub webhook requests
+
+[Path]
+PathExists=/var/lib/stkcraft-auto-update/webhook.pending
+Unit=stkcraft-auto-update.service
+
+[Install]
+WantedBy=multi-user.target

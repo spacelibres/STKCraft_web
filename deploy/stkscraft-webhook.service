@@ -8,7 +8,7 @@ User=root
 WorkingDirectory=/opt/stkscraft
 Environment=WEBHOOK_PORT=8788
 Environment=WEBHOOK_SECRET_FILE=/etc/stkscraft/webhook.secret
-Environment=DEPLOY_SCRIPT=/opt/stkscraft/deploy/deploy.sh
+Environment=DEPLOY_PENDING_FILE=/var/lib/stkcraft-auto-update/webhook.pending
 Environment=VISITOR_TOKEN_FILE=/etc/stkscraft/visitors.token
 Environment=VISITOR_CSV=/var/lib/stkscraft/visitors.csv
 Environment=PATH=/usr/local/bin:/usr/bin:/bin

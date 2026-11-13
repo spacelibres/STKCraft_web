@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Poll public GitHub main branches; never build inside the running app.
+# Reconcile a signed webhook request; never build inside the running app.
 set -euo pipefail
 exec 9>/var/lock/stkcraft-auto-update.lock
-flock -n 9 || exit 0
+flock 9
 STATE=/var/lib/stkcraft-auto-update
 mkdir -p "$STATE" /opt/stkcraft-releases
+rm -f "$STATE/webhook.pending"
 revision() { git ls-remote "https://github.com/spacelibres/$1.git" refs/heads/main | awk '{print $1}'; }
 web=$(revision STKCraft_web)
 geo=$(revision STKCraft-Geocalc)

@@ -6,6 +6,17 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.15] — 2026-11-13 — Signed webhooks for all three repositories
+
+### Changed
+
+- Route signed main-branch pushes from the main site, GeoCalc and time to a
+  durable systemd path queue, retaining pushes received during active builds.
+- Replace scheduled polling with event-driven reconciliation while preserving
+  candidate verification, dependency updates and automatic rollback.
+- Add receiver integration coverage for signatures, repository/ref filtering,
+  persistent queue requests and private API authorization.
+
 ## [0.1.14] — 2026-11-13 — Automatic GitHub updates on the VPS
 
 ### Added

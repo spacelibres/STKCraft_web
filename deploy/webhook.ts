@@ -1,7 +1,6 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, renameSync } from "node:fs";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
-import { spawn } from "node:child_process";
 import { parse } from "csv-parse/sync";
 import { stringify } from "csv-stringify/sync";
 import { FIELDS, type VisitorRow } from "./fields";
@@ -11,10 +10,10 @@ const PORT = Number(process.env.WEBHOOK_PORT ?? "8788");
 const SECRET_FILE = process.env.WEBHOOK_SECRET_FILE ?? "/etc/stkscraft/webhook.secret";
 const TOKEN_FILE = process.env.VISITOR_TOKEN_FILE ?? "/etc/stkscraft/visitors.token";
 const VISITOR_CSV = process.env.VISITOR_CSV ?? "/var/lib/stkscraft/visitors.csv";
-const DEPLOY = process.env.DEPLOY_SCRIPT ?? "/opt/stkscraft/deploy/deploy.sh";
+const PENDING = process.env.DEPLOY_PENDING_FILE ?? "/var/lib/stkcraft-auto-update/webhook.pending";
+const REPOSITORIES = new Set(["spacelibres/STKCraft_web", "spacelibres/STKCraft-Geocalc", "spacelibres/STKCraft-time"]);
 const MAX_BODY = 1_000_000;
 
-let deployQueued = false;
 
 function send(
   res: ServerResponse,
@@ -96,25 +95,6 @@ function authorized(req: IncomingMessage, url: URL): boolean {
   }
 }
 
-function startDeploy(): boolean {
-  if (deployQueued) return false;
-  deployQueued = true;
-  const child = spawn("/bin/bash", [DEPLOY], {
-    cwd: "/opt/stkscraft",
-    detached: true,
-    stdio: "ignore",
-  });
-  child.on("error", (error) => {
-    console.error(`cannot start deploy: ${String(error)}`);
-    deployQueued = false;
-  });
-  child.unref();
-  setTimeout(() => {
-    deployQueued = false;
-  }, 5_000).unref();
-  return true;
-}
-
 async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> {
   const url = new URL(req.url ?? "/", `http://${HOST}:${PORT}`);
 
@@ -185,21 +165,21 @@ async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> 
     return;
   }
 
-  let payload: { ref?: string };
+  let payload: { ref?: string; repository?: { full_name?: string } };
   try {
-    payload = JSON.parse(body.toString("utf8")) as { ref?: string };
+    payload = JSON.parse(body.toString("utf8"));
+    if (!payload || typeof payload !== "object") throw new Error("invalid payload");
   } catch {
     send(res, 400, { error: "invalid json" });
     return;
   }
-  if (payload.ref !== "refs/heads/main") {
+  if (payload.ref !== "refs/heads/main" || !REPOSITORIES.has(payload.repository?.full_name ?? "")) {
     send(res, 204, { ok: true, message: "ignored ref" });
     return;
   }
-  if (!startDeploy()) {
-    send(res, 409, { error: "deploy already queued" });
-    return;
-  }
+  // systemd.path persists/coalesces requests arriving during an active build.
+  writeFileSync(`${PENDING}.next`, `${Date.now()} ${payload.repository?.full_name}\n`, { mode: 0o600 });
+  renameSync(`${PENDING}.next`, PENDING);
   send(res, 202, { ok: true, message: "deploy queued" });
 }
 
