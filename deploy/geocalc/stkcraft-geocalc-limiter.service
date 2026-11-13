@@ -1,0 +1,23 @@
+[Unit]
+Description=STKCraft GeoCalc loopback request limiter
+After=network.target stkcraft-geocalc.service
+
+[Service]
+Type=simple
+User=stkcraft-geocalc
+Group=stkcraft-geocalc
+RuntimeDirectory=stkcraft-geocalc-limiter
+ExecStartPre=/usr/sbin/nginx -e stderr -t -c /etc/stkcraft-geocalc/nginx.conf
+ExecStart=/usr/sbin/nginx -e stderr -c /etc/stkcraft-geocalc/nginx.conf -g "daemon off;"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+MemoryMax=64M
+TasksMax=16
+
+[Install]
+WantedBy=multi-user.target

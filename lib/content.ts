@@ -10,6 +10,7 @@ export const en = {
   nav: {
     craft: "The craft",
     workspace: "Workspace",
+    modules: "Modules",
     family: "Family",
     principles: "Principles",
     status: "Status",
@@ -20,6 +21,30 @@ export const en = {
     primary: "Primary",
     sections: "Sections",
     skip: "Skip to content",
+  },
+  modules: {
+    kicker: "Modules / Use the engines",
+    meta: "Online workspace · Rust libraries",
+    title: "From time to geometry.",
+    lede: "Open GeoCalc in your browser, or build with the independent geometry and time modules. The workspace brings both engines into one view.",
+    open: "Open GeoCalc",
+    source: "View source",
+    items: [
+      {
+        name: "STKCraft GeoCalc",
+        kind: "Online workspace + geometry library",
+        description: "Explore solar-system geometry, state vectors and event searches in an interactive workspace powered by local SPICE kernels. Includes time conversion and an API reference.",
+        online: true,
+        source: "https://github.com/spacelibres/STKCraft-Geocalc",
+      },
+      {
+        name: "STKCraft-time",
+        kind: "Time library · Integrated in GeoCalc",
+        description: "UTC, TAI, TT, TDB/ET, GPS, UT1 and spacecraft clock tools in a reusable Rust module. Use its time workflows inside GeoCalc or integrate the library into your own application.",
+        online: false,
+        source: "https://github.com/spacelibres/STKCraft-time",
+      },
+    ],
   },
   header: {
     language: "Switch language to Chinese",
@@ -236,6 +261,9 @@ export const en = {
         links: [
           { label: "What it is", href: "#craft" },
           { label: "Workspace", href: "#workspace" },
+          { label: "Open GeoCalc", href: "https://geocalc.stkcraft.com/" },
+          { label: "GeoCalc source", href: "https://github.com/spacelibres/STKCraft-Geocalc" },
+          { label: "Time module", href: "https://github.com/spacelibres/STKCraft-time" },
           { label: "Principles", href: "#principles" },
           { label: "Status", href: "#status" },
         ],
@@ -295,6 +323,7 @@ export const zh: SiteContent = {
   nav: {
     craft: "产品",
     workspace: "工作台",
+    modules: "模块",
     family: "家族",
     principles: "原则",
     status: "状态",
@@ -305,6 +334,30 @@ export const zh: SiteContent = {
     primary: "主导航",
     sections: "章节",
     skip: "跳到正文",
+  },
+  modules: {
+    kicker: "模块 / 使用计算引擎",
+    meta: "在线工作台 · Rust 库",
+    title: "从时间到空间几何。",
+    lede: "在浏览器中打开 GeoCalc，或使用独立的几何与时间模块构建应用。在线工作台将两个引擎整合在同一个视图中。",
+    open: "打开 GeoCalc",
+    source: "查看源码",
+    items: [
+      {
+        name: "STKCraft GeoCalc",
+        kind: "在线工作台 + 几何计算库",
+        description: "基于服务器上的 SPICE 数据，在交互工作台中探索太阳系几何、状态向量与事件搜索，并使用时间转换和 API 参考。",
+        online: true,
+        source: "https://github.com/spacelibres/STKCraft-Geocalc",
+      },
+      {
+        name: "STKCraft-time",
+        kind: "时间计算库 · 已集成到 GeoCalc",
+        description: "可复用的 Rust 时间模块，提供 UTC、TAI、TT、TDB/ET、GPS、UT1 与航天器时钟工具。可在 GeoCalc 中使用时间工作流，也可将库集成到自己的应用中。",
+        online: false,
+        source: "https://github.com/spacelibres/STKCraft-time",
+      },
+    ],
   },
   header: {
     language: "切换到英文",
@@ -518,6 +571,9 @@ export const zh: SiteContent = {
         links: [
           { label: "它是什么", href: "#craft" },
           { label: "工作台", href: "#workspace" },
+          { label: "打开 GeoCalc", href: "https://geocalc.stkcraft.com/" },
+          { label: "GeoCalc 源码", href: "https://github.com/spacelibres/STKCraft-Geocalc" },
+          { label: "时间模块", href: "https://github.com/spacelibres/STKCraft-time" },
           { label: "原则", href: "#principles" },
           { label: "状态", href: "#status" },
         ],

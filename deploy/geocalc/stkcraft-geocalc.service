@@ -1,0 +1,35 @@
+[Unit]
+Description=STKCraft GeoCalc workspace
+After=network.target
+
+[Service]
+Type=simple
+User=stkcraft-geocalc
+Group=stkcraft-geocalc
+WorkingDirectory=/opt/stkcraft-geocalc/web
+Environment=NODE_ENV=production
+Environment=STKCRAFT_WEB_PYTHON=/usr/bin/python3
+Environment=STKCRAFT_WEB_GEOMETRY=/etc/stkcraft-geocalc/bin/geometry
+Environment=STKCRAFT_WEB_MCP=/etc/stkcraft-geocalc/bin/mcp
+Environment=STKCRAFT_WEB_TIME=/etc/stkcraft-geocalc/bin/time
+Environment=STKCRAFT_WEB_TIME_MCP=/etc/stkcraft-geocalc/bin/time-mcp
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+KillMode=control-group
+RuntimeDirectory=stkcraft-geocalc
+RuntimeDirectoryMode=0700
+MemoryHigh=640M
+MemoryMax=768M
+CPUQuota=150%
+TasksMax=96
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictSUIDSGID=true
+ReadWritePaths=/opt/stkcraft-geocalc/web/.next/cache
+
+[Install]
+WantedBy=multi-user.target

@@ -7,6 +7,7 @@ type SectionIndexProps = {
     top: string;
     craft: string;
     workspace: string;
+    modules: string;
     family: string;
     principles: string;
     status: string;
@@ -16,7 +17,7 @@ type SectionIndexProps = {
   base: string;
 };
 
-const ids = ["top", "craft", "workspace", "family", "principles", "status", "start"] as const;
+const ids = ["top", "craft", "workspace", "modules", "family", "principles", "status", "start"] as const;
 
 export function SectionIndex({ labels, base }: SectionIndexProps) {
   const [active, setActive] = useState<string>("top");
@@ -72,6 +73,7 @@ export function SectionIndex({ labels, base }: SectionIndexProps) {
     { id: "top", label: labels.top },
     { id: "craft", label: labels.craft },
     { id: "workspace", label: labels.workspace },
+    { id: "modules", label: labels.modules },
     { id: "family", label: labels.family },
     { id: "principles", label: labels.principles },
     { id: "status", label: labels.status },

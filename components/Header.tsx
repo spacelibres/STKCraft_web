@@ -32,6 +32,7 @@ export function Header({ lang, nav, header }: HeaderProps) {
       <nav className={`site-nav${open ? " is-open" : ""}`} id="site-nav" aria-label={nav.primary}>
         <a href={`${base}#craft`} onClick={() => setOpen(false)}>{nav.craft}</a>
         <a href={`${base}#workspace`} onClick={() => setOpen(false)}>{nav.workspace}</a>
+        <a href={`${base}#modules`} onClick={() => setOpen(false)}>{nav.modules}</a>
         <a href={`${base}#family`} onClick={() => setOpen(false)}>{nav.family}</a>
         <a href={`${base}#principles`} onClick={() => setOpen(false)}>{nav.principles}</a>
         <a href={`${base}#status`} onClick={() => setOpen(false)}>{nav.status}</a>

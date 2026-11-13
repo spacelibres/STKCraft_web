@@ -1,7 +1,7 @@
 # GeoCalc deployment and module links
 
 Date: 2026-11-13
-Status: Code and server inspection complete; architecture review pending.
+Status: Independent workspace deployed and verified; see deploy/geocalc/DEPLOYMENT.md.
 
 ## Requested outcome
 
@@ -65,9 +65,12 @@ Browser -> Caddy HTTPS -> loopback request limiter -> loopback Next server
   client-supplied forwarding headers.
 - Apply a separate small burst budget to computational POST endpoints,
   including calculate, scene, trajectories, time and time/convert. Start with
-  30 requests/minute per IP and burst 5, then adjust using playback tests.
+  a measured budget that accommodates playback, then verify controlled excess
+  traffic receives 429. Implementation uses 4 requests/second per IP, burst 8,
+  and a global 8 requests/second budget with burst 12.
 - Bound simultaneous computational requests per IP and globally. Initial
-  proposal: 1 per IP, 2 globally; return 429 when the budget is exhausted.
+  implementation after playback testing: 6 per IP, 8 globally; return JSON 429
+  with Retry-After when the budget is exhausted.
   Allow static assets separately so loading the workspace remains usable.
 - The upstream scene and playback behavior must be tested against these
   budgets; avoid deploying a limiter that makes the default UI unusable.
@@ -75,7 +78,7 @@ Browser -> Caddy HTTPS -> loopback request limiter -> loopback Next server
   upstream response timeouts. Native processes already have a 120s timeout;
   the proxy must allow a coherent bounded response for supported operations.
 - Run Next and all child processes in one dedicated unprivileged systemd
-  service/cgroup. Start with MemoryMax=768M, CPUQuota=75%, TasksMax=96 and
+  service/cgroup. Use MemoryMax=768M, CPUQuota=150%, TasksMax=96 and
   Restart=on-failure, then size them against actual available VPS resources.
   Keep builds outside the runtime budget. Treat repeated OOM as a failed gate.
 - Keep source, binaries and kernels read-only to the service account. Grant
@@ -152,8 +155,8 @@ numerical publication and upstream package releases are outside this task.
 ## Current deployment prerequisites
 
 - `www.stkcraft.com` resolves to `176.122.160.172` and serves HTTPS successfully.
-- `geocalc.stkcraft.com` returned NXDOMAIN during inspection. Add its DNS record
-  to the verified deployment host before requesting its HTTPS certificate.
+- The user configured `geocalc.stkcraft.com`; a subsequent lookup confirmed
+  `176.122.160.172`. Independent-subdomain implementation is authorized.
 - After the user supplied the connection credentials, SSH succeeded using
   first-use host-key acceptance. No password was saved to repository files.
 - Server inspection found 2026 MiB physical memory, 1023 MiB swap, 27 GiB
@@ -164,8 +167,10 @@ numerical publication and upstream package releases are outside this task.
 - The service budget above reserves memory for existing applications. Native
   release builds must use one build job and run sequentially with the web
   build; inspect memory pressure and swap before starting them.
-- Architecture review is pending. The public-access policy has been confirmed;
-  the recommended subdomain and production topology remain proposals.
+- The public-access policy and independent subdomain are confirmed. The
+  implementation also bounds geometry subprocess execution with two shared
+  slots to bound aggregate kernel memory without altering upstream numerical
+  behavior. Time conversion bypasses that pool because it does not load SPKs.
 
 ## Source references
 

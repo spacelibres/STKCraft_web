@@ -1,3 +1,16 @@
+.modules-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.module { padding: 40px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.module + .module { border-left: 1px solid var(--line); }
+.module__kind { color: var(--faint); font-size: 10px; }
+.module h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); letter-spacing: -.035em; }
+.module__description { color: var(--muted); line-height: 1.7; max-width: 52ch; }
+.module__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 12px; }
+@media (max-width: 700px) {
+  .modules-grid { grid-template-columns: 1fr; }
+  .module { padding: 24px 22px 32px; }
+  .module + .module { border-left: 0; border-top: 1px solid var(--line); }
+}
+
 .hero {
   position: relative;
   background: radial-gradient(ellipse at 50% 36%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 58%);

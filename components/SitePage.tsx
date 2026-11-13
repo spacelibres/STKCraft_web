@@ -4,6 +4,7 @@ import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { CraftSection } from "./CraftSection";
 import { WorkspaceSection } from "./WorkspaceSection";
+import { ModulesSection } from "./ModulesSection";
 import { FamilySection } from "./FamilySection";
 import { PrinciplesSection } from "./PrinciplesSection";
 import { StatusSection } from "./StatusSection";
@@ -70,6 +71,7 @@ export function SitePage({ lang }: { lang: Lang }) {
         <Hero hero={c.hero} />
         <CraftSection craft={c.craft} />
         <WorkspaceSection workspace={c.workspace} />
+        <ModulesSection modules={c.modules} />
         <FamilySection family={c.family} />
         <PrinciplesSection principles={c.principles} />
         <StatusSection status={c.status} />
@@ -82,6 +84,7 @@ export function SitePage({ lang }: { lang: Lang }) {
           top: c.hero.wordmark,
           craft: c.nav.craft,
           workspace: c.nav.workspace,
+          modules: c.nav.modules,
           family: c.nav.family,
           principles: c.nav.principles,
           status: c.nav.status,

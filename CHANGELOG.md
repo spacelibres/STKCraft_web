@@ -6,6 +6,19 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.13] — 2026-11-13 — Independent GeoCalc workspace and module links
+
+### Added
+
+- Bilingual modules section, navigation and footer links to the independent
+  GeoCalc workspace and the GeoCalc and STKCraft-time repositories.
+- Dedicated GeoCalc service, trusted-client-IP request limiter, CPU/memory/task
+  budgets and bounded native execution for the 2 GiB VPS.
+- Locked build, pinned web-kernel preparation, staged activation and operations
+  documentation separate from the static main-site deployment.
+- Public-host UI overlay for the return-to-main-site link and five-second
+  playback cadence, verified against the VPS capacity.
+
 ## [0.1.12] — 2026-11-13 — GeoCalc deployment design
 
 ### Added
