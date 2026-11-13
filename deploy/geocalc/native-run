@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Bound aggregate SPK memory without changing upstream calculation code.
 set -euo pipefail
+ROOT=${GEOCALC_ROOT:-/opt/stkcraft-geocalc}
 case "$(basename "$0")" in
-  geometry) binary=/opt/stkcraft-geocalc/target/release/wgc_geometry ;;
-  mcp) binary=/opt/stkcraft-geocalc/target/release/stkcraft-geocalc-mcp ;;
-  time) binary=/opt/stkcraft-geocalc/web/native/target/release/stkcraft-web-time-bridge ;;
-  time-mcp) binary=/opt/stkcraft-geocalc/web/native/target/release/stkcraft-web-time-mcp ;;
+  geometry) binary=$ROOT/target/release/wgc_geometry ;;
+  mcp) binary=$ROOT/target/release/stkcraft-geocalc-mcp ;;
+  time) binary=$ROOT/web/native/target/release/stkcraft-web-time-bridge ;;
+  time-mcp) binary=$ROOT/web/native/target/release/stkcraft-web-time-mcp ;;
   *) echo 'Unknown native entry point' >&2; exit 64 ;;
 esac
 # Time tools do not load the SPK and must not queue behind scene calculations.

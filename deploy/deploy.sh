@@ -17,6 +17,10 @@ if ! flock -n 9; then
   exit 0
 fi
 
+# Share the memory-intensive build budget with independent modules.
+exec 8>/var/lock/stkcraft-build.lock
+flock 8
+
 cd "$APP_DIR"
 git fetch --prune origin main
 git reset --hard origin/main
@@ -35,4 +39,7 @@ rsync -a --delete "$APP_DIR/out/" "$WEB_ROOT/"
 if id caddy >/dev/null 2>&1; then
   chown -R caddy:caddy "$WEB_ROOT"
 fi
+mkdir -p /var/lib/stkscraft
+git rev-parse HEAD > /var/lib/stkscraft/deployed-web.commit.next
+mv /var/lib/stkscraft/deployed-web.commit.next /var/lib/stkscraft/deployed-web.commit
 echo "=== $(date -Is) STKCraft deploy complete ==="

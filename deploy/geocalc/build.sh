@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
+exec 8>/var/lock/stkcraft-build.lock
+flock 8
 APP_DIR="${APP_DIR:-/opt/stkcraft-geocalc}"
 cd "$APP_DIR"
-git diff --quiet
+if [[ ${RESOLVED_TIME_SOURCE:-0} == 1 ]]; then
+  git diff --quiet -- . ':(exclude).cargo/config.toml' ':(exclude)Cargo.lock' ':(exclude)web/native/Cargo.lock'
+else
+  git diff --quiet
+fi
 git diff --cached --quiet
 git rev-parse HEAD
 export CARGO_BUILD_JOBS=1

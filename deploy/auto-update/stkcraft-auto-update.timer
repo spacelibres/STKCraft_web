@@ -1,0 +1,10 @@
+[Unit]
+Description=Check STKCraft GitHub updates every five minutes
+
+[Timer]
+OnBootSec=3min
+OnUnitInactiveSec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

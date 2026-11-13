@@ -1,0 +1,13 @@
+[Unit]
+Description=Fetch and verify STKCraft GitHub deployments
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /etc/stkcraft-auto-update/update.sh
+TimeoutStartSec=7200
+Nice=10
+OOMScoreAdjust=500
+CPUQuota=150%
+MemoryMax=1024M

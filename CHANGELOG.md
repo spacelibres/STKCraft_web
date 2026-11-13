@@ -6,6 +6,20 @@ The site follows a simple release rule: **every commit that changes the product 
 step**. The smallest version component goes up by one, and the matching section is added in the
 same commit. `pnpm build` enforces the match between `package.json` and the newest heading.
 
+## [0.1.14] — 2026-11-13 — Automatic GitHub updates on the VPS
+
+### Added
+
+- Boot-persistent five-minute GitHub polling for the main site, GeoCalc and time.
+- Isolated GeoCalc candidate builds with the current compatible time source,
+  recorded dependency resolution, integration gates and startup rollback.
+- Serialized update jobs, build resource limits and failed-candidate cleanup.
+
+### Changed
+
+- Native wrappers and integration verifier accept an explicit candidate root.
+- Main-site and module builds share a lock to protect the VPS memory budget.
+
 ## [0.1.13] — 2026-11-13 — Independent GeoCalc workspace and module links
 
 ### Added
